@@ -1,38 +1,42 @@
-# create-svelte
+# CtrlHabits - Goal Tracking Web Application
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+CPSC 362 Project
 
-## Creating a project
+CtrlHabits is a web application that enables users to set and track their daily goals. The application is designed to help users build better habits and stay accountable towards achieving their desired outcomes.
 
-If you're seeing this, you've probably already done this step. Congrats!
+![image](https://user-images.githubusercontent.com/95833009/220467840-f696ee14-e148-4f1e-98d0-6927bf397f78.png)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Features
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+* User accounts: Users can create an account and log in to the platform.
+* Goal setting: Users can create goals for different areas of their life such as fitness, work, personal growth, and more. They can set the frequency, target, and deadline for each goal.
+* Heatmap visualization: The platform generates a heatmap based on the user's daily progress towards their goals. The heat map will visually show the progress of each goal with darker colors representing more progress and lighter colors indicating less progress.
+* Progress summary: Users can see a summary of their progress towards their goals, including the number of days they have completed their goal, their average progress, and their overall success rate.
+* Notifications: The platform will also send notifications to users when they have completed their goals or when they are falling behind.
 
-## Developing
+## Purpose
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+CtrlHabits is designed to help users stay motivated and accountable towards their goals, providing them with a visual representation of their progress towards achieving their desired outcomes.
+Technologies
 
-```bash
-npm run dev
+CtrlHabits is built with modern web development technologies, including:
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+    TEMPORARY
+    React for the user interface 
+    Node.js and Express for the server-side
+    MongoDB for the database
 
-## Building
+## Installation
 
-To create a production version of your app:
+To install and run CtrlHabits, follow these steps:
 
-```bash
-npm run build
-```
+    Clone the repository from GitHub: git clone https://github.com/[repository-name].git
+    Install the dependencies: npm install
+    Start the server: npm start
 
-You can preview the production build with `npm run preview`.
+## Usage
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Once the server is running, you can access CtrlHabits in your web browser at http://localhost:3000. From there, you can create an account and start setting and tracking your goals.
+## License
+
+CtrlHabits is released under the MIT License.
