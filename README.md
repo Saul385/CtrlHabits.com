@@ -1,10 +1,13 @@
 # CtrlHabits - Goal Tracking Web Application
+
 CPSC 362 Project
 
 CtrlHabits is a web application that enables users to set and track their daily goals. The application is designed to help users build better habits and stay accountable towards achieving their desired outcomes.
 
 ![image](https://user-images.githubusercontent.com/95833009/220467840-f696ee14-e148-4f1e-98d0-6927bf397f78.png)
+
 ## Features
+
 * User accounts: Users can create an account and log in to the platform.
 * Goal setting: Users can create goals for different areas of their life such as fitness, work, personal growth, and more. They can set the frequency, target, and deadline for each goal.
 * Heatmap visualization: The platform generates a heatmap based on the user's daily progress towards their goals. The heat map will visually show the progress of each goal with darker colors representing more progress and lighter colors indicating less progress.
