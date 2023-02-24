@@ -39,6 +39,11 @@ CtrlHabits is built with modern web development technologies, including:
 
 ## Development
 
+[![Build](https://github.com/Saul385/CtrlHabits.com/actions/workflows/build.yaml/badge.svg)](https://github.com/Saul385/CtrlHabits.com/actions/workflows/build.yaml)
+[![Check](https://github.com/Saul385/CtrlHabits.com/actions/workflows/check.yaml/badge.svg)](https://github.com/Saul385/CtrlHabits.com/actions/workflows/check.yaml)
+[![Format](https://github.com/Saul385/CtrlHabits.com/actions/workflows/fmt.yaml/badge.svg)](https://github.com/Saul385/CtrlHabits.com/actions/workflows/fmt.yaml)
+[![Lint](https://github.com/Saul385/CtrlHabits.com/actions/workflows/lint.yaml/badge.svg)](https://github.com/Saul385/CtrlHabits.com/actions/workflows/lint.yaml)
+
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/en/)
