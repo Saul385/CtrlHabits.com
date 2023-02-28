@@ -6,25 +6,26 @@
 
 -->
 <script>
-	import {openModal} from 'svelte-modals'
-	import Modal from '../components/Modal.svelte'
+	import { openModal } from 'svelte-modals';
+	import Modal from '../components/Modal.svelte';
 
-	function handleClick(){
+	function handleClick() {
 		openModal(Modal, {});
 	}
 </script>
 
 <div class="headerContainer">
 	<div class="header">
-		<a href="/"><img
-			class="logo"
-			src="https://media.discordapp.net/attachments/1067970159987404822/1078421689928519803/logodark_grey_with_white.png"
-			alt=""
+		<a href="/"
+			><img
+				class="logo"
+				src="https://media.discordapp.net/attachments/1067970159987404822/1078421689928519803/logodark_grey_with_white.png"
+				alt=""
 			/>
 		</a>
-		
+
 		<nav class="headerLinks">
-			<a href="" on:click = {handleClick}>Login | Sign Up</a>
+			<a href="" on:click={handleClick}>Login | Sign Up</a>
 			<a href="/about">About</a>
 		</nav>
 	</div>
@@ -43,7 +44,7 @@
 		margin: auto;
 	}
 	.headerLinks a {
-		color: #FEFCF2;
+		color: #fefcf2;
 		text-decoration: none;
 		text-shadow: 1px 1px 1px black;
 		font-family: arial;

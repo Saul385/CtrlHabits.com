@@ -1,3 +1,4 @@
+<!--
 <script>
     import {profile} from '$lib/profile';
 </script>
@@ -154,3 +155,4 @@
         margin-left: auto;
       }
 </style>
+-->
