@@ -35,7 +35,7 @@
   
     }
     body {
-		background-image: url(https://img.freepik.com/free-vector/green-tones-gradient-background_23-2148360454.jpg?w=2000&t=st=1677278586~exp=1677279186~hmac=6ee8990a65935cf560cbc5d808e165ce2e538a3d0ff52a5b4b7e17ef3c8bd56d);
+		background-image: url(https://img.freepik.com/free-vector/gradient-liquid-abstract-background_23-2148914626.jpg?w=996&t=st=1677614748~exp=1677615348~hmac=b85e5627e48713d263e834ab6c2b27ae7342d04d0c5a5d2ab5c4ff0e5b6ef2b7);
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-color: black;
