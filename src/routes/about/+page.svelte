@@ -6,7 +6,7 @@
 	<Navbar />
 	<div class="blobContainer">
 		<div class="blob">
-			<p style = "color: white">
+			<p style="color: white">
 				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet, possimus. Commodi magnam
 				quo, molestiae ratione debitis quia, optio, explicabo ducimus sint illo eaque aperiam cum?
 				Repellendus culpa cum atque alias.

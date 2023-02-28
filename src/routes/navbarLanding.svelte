@@ -25,6 +25,7 @@
 		</a>
 
 		<nav class="headerLinks">
+			<!-- svelte-ignore a11y-invalid-attribute -->
 			<a href="" on:click={handleClick}>Login | Sign Up</a>
 			<a href="/about">About</a>
 		</nav>
