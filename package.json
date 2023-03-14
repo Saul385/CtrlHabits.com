@@ -31,6 +31,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"firebase": "^9.17.2",
 		"svelte-modals": "^1.2.1"
 	}
 }
