@@ -1,40 +1,34 @@
 <script>
-	import logo from '$lib/images/logo.png';
 </script>
 
-<div class = headerContainer>
-    <div class="header">
+<div class="headerContainer">
+	<div class="header">
 		<!--Logo-->
-        <a href="/"
-			><img
-				class="logo"
-				src="{logo}"
-				alt=""
-			/>
+		<a href="/">
+			<img class="logo" src="/images/logo.png" alt="CtrlHabits.com logo" />
 		</a>
 
 		<!--Header Links-->
 		<nav class="headerLinks">
-			<a href="">Home</a>
-			<a href="">Goals</a>
-			<a href="">Friends</a>
+			<a href="/">Home</a>
+			<a href="/goals">Goals</a>
+			<a href="/friends">Friends</a>
 		</nav>
 
 		<!--Profile Image-->
-        <a href="/"
+		<a href="/"
 			><img
 				class="profileImage"
 				src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
-				alt=""
+				alt="Profile image"
 			/>
 		</a>
-    </div>
+	</div>
 </div>
 
 <style>
 	.headerContainer {
 		width: 100%;
-		
 	}
 	.header {
 		display: flex;
@@ -46,7 +40,7 @@
 		margin: auto;
 	}
 	.headerLinks a {
-		color: #05386B;
+		color: #05386b;
 		text-decoration: none;
 		font-family: arial;
 		font-size: 1.7vw;
@@ -62,7 +56,7 @@
 	.logo {
 		width: min(50vw, 250px);
 	}
-	.profileImage{
+	.profileImage {
 		width: min(25vw, 100px);
 		border-radius: 30px;
 		margin-top: 60px;

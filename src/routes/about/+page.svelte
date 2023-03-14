@@ -2,23 +2,25 @@
 	import Navbar from '../../components/navbarLanding.svelte';
 </script>
 
-<body class = 'landingBody'>
+<body class="landingBody">
 	<Navbar />
 	<div class="blobContainer">
 		<div class="blob">
 			<p>
-				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet, possimus. Commodi magnam
-				quo, molestiae ratione debitis quia, optio, explicabo ducimus sint illo eaque aperiam cum?
-				Repellendus culpa cum atque alias.
+				<!-- TODO(#8): Finalize text. -->
+				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet, possimus. Commodi magnam quo,
+				molestiae ratione debitis quia, optio, explicabo ducimus sint illo eaque aperiam cum? Repellendus
+				culpa cum atque alias.
 			</p>
 			<div class="diagram" />
 		</div>
 		<div class="blob">
 			<div class="diagram" />
 			<p>
-				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem veniam at quibusdam mollitia
-				sapiente non, minus modi quod exercitationem blanditiis, possimus aut, quidem excepturi? Aut
-				veniam nostrum fugit! Excepturi, alias?
+				<!-- TODO(#8): Finalize text. -->
+				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem veniam at quibusdam mollitia sapiente
+				non, minus modi quod exercitationem blanditiis, possimus aut, quidem excepturi? Aut veniam nostrum
+				fugit! Excepturi, alias?
 			</p>
 		</div>
 	</div>
@@ -41,7 +43,7 @@
 		height: 25vh;
 	}
 	.landingBody {
-		background-image: url(../../lib/images/landingBackground.jpg);
+		background-image: url(/images/landingBackground.jpg);
 		background-repeat: no-repeat;
 		background-size: cover;
 		width: 100vw;

@@ -1,7 +1,6 @@
 <script>
 	import { openModal } from 'svelte-modals';
 	import Modal from '../components/Modal.svelte';
-	import logo from '$lib/images/logo.png';
 
 	function handleClick() {
 		openModal(Modal, {});
@@ -10,13 +9,7 @@
 
 <div class="headerContainer">
 	<div class="header">
-		<a href="/"
-			><img
-				class="logo"
-				src= "{logo}"
-				alt=""
-			/>
-		</a>
+		<a href="/"><img class="logo" src="/images/logo.png" alt="CtrlHabits.com logo" /> </a>
 
 		<nav class="headerLinks">
 			<!-- svelte-ignore a11y-invalid-attribute -->
