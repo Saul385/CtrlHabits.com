@@ -2,7 +2,7 @@
 	import Navbar from '../components/navbarLanding.svelte';
 </script>
 
-<body class = 'landingBody'>
+<body class="landingBody">
 	<Navbar />
 	<div class="heatmap">
 		<h1>Temporary Heatmap</h1>
@@ -11,12 +11,12 @@
 </body>
 
 <style>
-	body{
+	body {
 		background-color: black;
 		margin: auto;
 	}
 	.landingBody {
-		background-image: url(../lib/images/landingBackground.jpg);
+		background-image: url(/images/landingBackground.jpg);
 		background-repeat: no-repeat;
 		background-size: cover;
 		width: 100vw;
