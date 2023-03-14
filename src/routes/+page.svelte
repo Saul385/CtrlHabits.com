@@ -1,12 +1,8 @@
-<!--ToDo
-    Background
-		background doubling
--->
 <script>
-	import Navbar from './navbarLanding.svelte';
+	import Navbar from '../components/navbarLanding.svelte';
 </script>
 
-<body>
+<body class = 'landingBody'>
 	<Navbar />
 	<div class="heatmap">
 		<h1>Temporary Heatmap</h1>
@@ -15,11 +11,16 @@
 </body>
 
 <style>
-	body {
-		background-image: url(https://img.freepik.com/free-vector/gradient-liquid-abstract-background_23-2148914626.jpg?w=996&t=st=1677614748~exp=1677615348~hmac=b85e5627e48713d263e834ab6c2b27ae7342d04d0c5a5d2ab5c4ff0e5b6ef2b7);
+	body{
+		background-color: black;
+		margin: auto;
+	}
+	.landingBody {
+		background-image: url(../lib/images/landingBackground.jpg);
 		background-repeat: no-repeat;
 		background-size: cover;
-		background-color: black;
+		width: 100vw;
+		height: 100vh;
 	}
 	.heatmap {
 		margin-top: 10%;

@@ -1,13 +1,7 @@
-<!--ToDo
-    Header
-        Thicker logo?
-		Login/Sign up Modal 
-        
-
--->
 <script>
 	import { openModal } from 'svelte-modals';
 	import Modal from '../components/Modal.svelte';
+	import logo from '$lib/images/logo.png';
 
 	function handleClick() {
 		openModal(Modal, {});
@@ -19,14 +13,14 @@
 		<a href="/"
 			><img
 				class="logo"
-				src="https://media.discordapp.net/attachments/1067970159987404822/1078421689928519803/logodark_grey_with_white.png"
+				src= "{logo}"
 				alt=""
 			/>
 		</a>
 
 		<nav class="headerLinks">
 			<!-- svelte-ignore a11y-invalid-attribute -->
-			<a href="" on:click={handleClick}>Login | Sign Up</a>
+			<a href="/login"> Login | Sign Up</a>
 			<a href="/about">About</a>
 		</nav>
 	</div>
