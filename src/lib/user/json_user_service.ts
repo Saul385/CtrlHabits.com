@@ -3,22 +3,22 @@ import type {
 	AddUserResponse,
 	GetUserRequest,
 	GetUserResponse,
-	ListUsersByNamesRequest,
-	ListUsersByNamesResponse,
+	ListUsersByTagsRequest,
+	ListUsersByTagsResponse,
 	ListUsersRequest,
 	ListUsersResponse,
-	LoginRequest,
-	LoginResponse,
-	LogoutRequest,
-	RemoveRequest,
+	RemoveUserRequest,
 	User,
-	UserService
-} from './user';
+	UserServiceInterface
+} from './user_service_interface';
 
-export class JSONUserService implements UserService {
+/**
+ * TODO: Implement a real user service, such as SupabaseUserService or FirestoreUserService.
+ */
+export class JSONUserService implements UserServiceInterface {
 	public data: { [user_id: string]: User } = {};
 
-	public remove(r: RemoveRequest): Promise<void> {
+	public remove(r: RemoveUserRequest): Promise<void> {
 		if (this.data[r.id]) {
 			delete this.data[r.id];
 			return Promise.resolve();
@@ -52,10 +52,18 @@ export class JSONUserService implements UserService {
 		return Promise.resolve({ users: usersPage, total });
 	}
 
-	public listUsersByNames(r: ListUsersByNamesRequest): Promise<ListUsersByNamesResponse> {
-		const users = Object.values(this.data);
-		const usersByName = users.filter((user) => r.names.includes(user.name));
-		return Promise.resolve({ users: usersByName });
+	public listUsersByTags(r: ListUsersByTagsRequest): Promise<ListUsersByTagsResponse> {
+		const response: ListUsersByTagsResponse = { users: [] };
+		for (const userID in this.data) {
+			const user = this.data[userID];
+			if (!user || r.tags.includes(user.tag)) {
+				continue;
+			}
+
+			response.users.push(user);
+		}
+
+		return Promise.resolve(response);
 	}
 }
 
@@ -65,18 +73,21 @@ export interface NewUserOptions {
 }
 
 function makeNewUser(request: AddUserRequest, options: NewUserOptions): User {
+	const githubID = request.oauth.name === 'github' ? request.oauth.data.id : null;
+	const googleID = request.oauth.name === 'google' ? request.oauth.data.id : null;
 	return {
 		id: options.id,
-		name: request.name,
-		avatar: request.avatar,
-		email: request.email,
-		bio: request.bio,
+		tag: request.oauth.data.tag,
+		bio: request.oauth.data.bio,
+		avatar_url: request.oauth.data.avatar_url,
+		github_id: githubID,
+		google_id: googleID,
 		created_at: options.timestamp,
 		updated_at: options.timestamp
 	};
 }
 
-function makeUUID(): string {
+export function makeUUID(): string {
 	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
 		const r = (Math.random() * 16) | 0;
 		const v = c == 'x' ? r : (r & 0x3) | 0x8;
