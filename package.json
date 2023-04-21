@@ -31,6 +31,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@google-cloud/firestore": "^6.5.0",
 		"svelte-modals": "^1.2.1"
 	}
 }

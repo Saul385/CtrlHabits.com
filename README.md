@@ -60,6 +60,29 @@ To install and run CtrlHabits, follow these steps:
 1. Run `npm install` to install the dependencies
 1. Run `npm start` to start the development server -->
 
+### Environment variables
+
+Our application uses environment variables to store sensitive information. Make a new file called `.env` in the root directory of the project and add the following variables:
+
+```sh
+DEV_FLAG_ENABLED=1
+
+GITHUB_PROD_CLIENT="😎"
+GITHUB_PROD_SECRET="😎"
+
+GITHUB_DEV_CLIENT="😎"
+GITHUB_DEV_SECRET="😎"
+
+FIRESTORE_PROD_PROJECT_ID="😎"
+FIRESTORE_DEV_PROJECT_ID="😎"
+
+FIRESTORE_PROD_CLIENT_EMAIL="😎"
+FIRESTORE_DEV_CLIENT_EMAIL="😎"
+
+FIRESTORE_PROD_PRIVATE_KEY="😎"
+FIRESTORE_DEV_PRIVATE_KEY="😎"
+```
+
 ### Deployment
 
 The website is deployed to [Vercel](https://vercel.com/) and automatically

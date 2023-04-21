@@ -19,13 +19,13 @@ const FAKE_DATA: FakeGitHubOAuthServiceData = {
 
 test('FakeGitHubOAuthService.verify returns a valid token for a valid code', async () => {
 	const fakeService = new FakeGitHubOAuthService(FAKE_DATA);
-	const token = await fakeService.verify({ code: 'code_01' });
+	const token = await fakeService.verify('code_01');
 	expect(token).toEqual('token_01');
 });
 
 test('FakeGitHubOAuthService.verify throws an error for an invalid code', async () => {
 	const fakeService = new FakeGitHubOAuthService(FAKE_DATA);
-	await expect(fakeService.verify({ code: 'invalidCode' })).rejects.toThrow('Invalid code');
+	await expect(fakeService.verify('invalidCode')).rejects.toThrow('Invalid code');
 });
 
 test('FakeGitHubOAuthService.getData returns valid data for a valid token', async () => {

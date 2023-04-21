@@ -1,8 +1,5 @@
-import type {
-	GitHubOAuthServiceInterface,
-	GitHubOAuthCredentials
-} from './github_oauth_service_interface';
-import type { OAuthData } from '../oauth_service_interface';
+import type { OAuthServiceInterface, OAuthData } from '../oauth_service_interface';
+import { OAuthProvider } from '../oauth_service_interface';
 
 /**
  * FakeGitHubOAuthServiceData is the data used by FakeGitHubOAuthService.
@@ -17,11 +14,11 @@ export interface FakeGitHubOAuthServiceData {
  *
  * This class is NOT intended to be used in production.
  */
-export class FakeGitHubOAuthService implements GitHubOAuthServiceInterface {
+export class FakeGitHubOAuthService implements OAuthServiceInterface {
 	constructor(private readonly data: FakeGitHubOAuthServiceData) {}
 
-	public async verify(credentials: GitHubOAuthCredentials): Promise<string> {
-		const token = this.data.tokens[credentials.code];
+	public async verify(code: string): Promise<string> {
+		const token = this.data.tokens[code];
 		if (!token) {
 			throw new Error('Invalid code');
 		}

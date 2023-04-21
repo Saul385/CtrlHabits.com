@@ -1,11 +1,11 @@
 /**
  * OAuthServiceInterface is the interface for OAuth services.
  */
-export interface OAuthServiceInterface<T> {
+export interface OAuthServiceInterface {
 	/**
 	 * verify gets an access token.
 	 */
-	verify(credentials: T): Promise<string>;
+	verify(code: string): Promise<string>;
 
 	/**
 	 * getData gets data from an OAuth provider.
