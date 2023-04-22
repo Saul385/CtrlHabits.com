@@ -1,5 +1,4 @@
 import type { OAuthServiceInterface, OAuthData } from '../oauth_service_interface';
-import { OAuthProvider } from '../oauth_service_interface';
 
 /**
  * FakeGitHubOAuthServiceData is the data used by FakeGitHubOAuthService.

@@ -1,26 +1,25 @@
 import { test, expect } from 'vitest';
-
-import { OAuthProvider } from '../oauth_service_interface';
 import type { FakeGitHubOAuthServiceData } from './fake_github_oauth_service';
 import { FakeGitHubOAuthService } from './fake_github_oauth_service';
 
+const FAKE_CODE_01 = 'code_01';
+const FAKE_TOKEN_01 = 'token_01';
 const FAKE_DATA: FakeGitHubOAuthServiceData = {
-	tokens: { code_01: 'token_01' },
+	tokens: { [FAKE_CODE_01]: FAKE_TOKEN_01 },
 	users: {
-		token_01: {
-			name: OAuthProvider.GITHUB,
-			user_id: '01',
-			user_tag: 'JohnDoe',
-			user_bio: 'I am John Doe',
-			user_avatar_url: 'https://placekitten.com/g/150/150'
+		[FAKE_TOKEN_01]: {
+			id: '01',
+			tag: 'JohnDoe',
+			bio: 'I am John Doe',
+			avatar_url: 'https://placekitten.com/g/150/150'
 		}
 	}
 };
 
 test('FakeGitHubOAuthService.verify returns a valid token for a valid code', async () => {
 	const fakeService = new FakeGitHubOAuthService(FAKE_DATA);
-	const token = await fakeService.verify('code_01');
-	expect(token).toEqual('token_01');
+	const token = await fakeService.verify(FAKE_CODE_01);
+	expect(token).toEqual(FAKE_TOKEN_01);
 });
 
 test('FakeGitHubOAuthService.verify throws an error for an invalid code', async () => {
@@ -30,12 +29,11 @@ test('FakeGitHubOAuthService.verify throws an error for an invalid code', async 
 
 test('FakeGitHubOAuthService.getData returns valid data for a valid token', async () => {
 	const fakeService = new FakeGitHubOAuthService(FAKE_DATA);
-	const data = await fakeService.getData('token_01');
-	expect(data.name).toEqual(OAuthProvider.GITHUB);
-	expect(data.user_id).toEqual('01');
-	expect(data.user_tag).toEqual('JohnDoe');
-	expect(data.user_bio).toEqual('I am John Doe');
-	expect(data.user_avatar_url).toEqual('https://placekitten.com/g/150/150');
+	const data = await fakeService.getData(FAKE_TOKEN_01);
+	expect(data.id).toEqual('01');
+	expect(data.tag).toEqual('JohnDoe');
+	expect(data.bio).toEqual('I am John Doe');
+	expect(data.avatar_url).toEqual('https://placekitten.com/g/150/150');
 });
 
 test('FakeGitHubOAuthService.getData throws an error for an invalid token', async () => {

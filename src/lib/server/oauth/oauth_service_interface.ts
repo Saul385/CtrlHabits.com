@@ -14,20 +14,46 @@ export interface OAuthServiceInterface {
 }
 
 /**
- * OAuthProvider is an enum of OAuth providers.
+ * OAuthServiceType is an enum of OAuth providers.
  */
-export enum OAuthProvider {
+export enum OAuthServiceType {
 	GITHUB = 'github',
-	GOOGLE = 'google'
+	LOCAL_GITHUB = 'local_github',
+	GOOGLE = 'google',
+	LOCAL_GOOGLE = 'local_google'
+}
+
+/**
+ * parseOAuthServiceType parses an OAuthServiceType from a string.
+ */
+export function parseOAuthServiceType(
+	oauthServiceType: string | null
+): OAuthServiceType | undefined {
+	switch (oauthServiceType) {
+		case OAuthServiceType.GITHUB: {
+			return OAuthServiceType.GITHUB;
+		}
+		case OAuthServiceType.LOCAL_GITHUB: {
+			return OAuthServiceType.LOCAL_GITHUB;
+		}
+		case OAuthServiceType.GOOGLE: {
+			return OAuthServiceType.GOOGLE;
+		}
+		case OAuthServiceType.LOCAL_GOOGLE: {
+			return OAuthServiceType.LOCAL_GOOGLE;
+		}
+		default: {
+			return;
+		}
+	}
 }
 
 /**
  * OAuthData is the data returned from an OAuth provider.
  */
 export interface OAuthData {
-	name: OAuthProvider;
-	user_id: string;
-	user_tag: string;
-	user_bio: string;
-	user_avatar_url: string;
+	id: string;
+	tag: string;
+	bio: string;
+	avatar_url: string;
 }

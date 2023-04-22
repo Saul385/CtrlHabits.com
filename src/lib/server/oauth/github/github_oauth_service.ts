@@ -1,5 +1,4 @@
 import type { OAuthServiceInterface, OAuthData } from '../oauth_service_interface';
-import { OAuthProvider } from '../oauth_service_interface';
 
 /**
  * GitHubOAuthService is the service for GitHub OAuth.
@@ -35,17 +34,14 @@ export class GitHubOAuthService implements OAuthServiceInterface {
 		}
 
 		const data = await response.json();
-		console.log({ data }); // TODO: This is for testing. Delete me later!
-		return makeGitHubOAuthData(data.id, data.login, data.bio, data.avatar_url);
-	}
-}
+		const result: OAuthData = {
+			id: data.id,
+			tag: data.login,
+			bio: data.bio,
+			avatar_url: data.avatar_url
+		};
 
-function makeGitHubOAuthData(id: string, tag: string, bio: string, avatar_url: string): OAuthData {
-	return {
-		name: OAuthProvider.GITHUB,
-		user_id: id,
-		user_tag: tag,
-		user_bio: bio,
-		user_avatar_url: avatar_url
-	};
+		console.log({ data, result }); // TODO: This is for testing. Delete me later!
+		return result;
+	}
 }
