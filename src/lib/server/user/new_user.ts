@@ -1,3 +1,4 @@
+import { OAuthServiceType } from '$lib/server/oauth';
 import type { AddUserRequest, User } from './user_service_interface';
 
 /**
@@ -6,19 +7,20 @@ import type { AddUserRequest, User } from './user_service_interface';
 export interface NewUserOptions {
 	id: string;
 	timestamp: string;
+	oauthServiceType?: OAuthServiceType;
 }
 
 /**
  * makeNewUser creates a new user from the request and options.
  */
 export function makeNewUser(request: AddUserRequest, options: NewUserOptions): User {
-	const githubID = request.oauth.name === 'github' ? request.oauth.user_id : null;
-	const googleID = request.oauth.name === 'google' ? request.oauth.user_id : null;
+	const githubID = options.oauthServiceType === OAuthServiceType.GITHUB ? request.oauth.id : null;
+	const googleID = options.oauthServiceType === OAuthServiceType.GOOGLE ? request.oauth.id : null;
 	return {
 		id: options.id,
-		tag: request.tag ?? request.oauth.user_tag,
-		bio: request.oauth.user_bio,
-		avatar_url: request.oauth.user_avatar_url,
+		tag: request.tag,
+		bio: request.oauth.bio,
+		avatar_url: request.oauth.avatar_url,
 		github_id: githubID,
 		google_id: googleID,
 		created_at: options.timestamp,

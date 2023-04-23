@@ -1,14 +1,19 @@
 import type { RequestEvent } from './$types';
-import type { User, UserServiceInterface } from '$lib/server/user';
+import type { OAuthServiceType } from '$lib/server/oauth';
 import type { AuthSearchParams, ExperimentSearchParams } from '$lib/search_params';
-import { parseAuthSearchParams, parseExperimentSearchParams } from '$lib/search_params';
+import {
+	parseAuthSearchParams,
+	parseExperimentSearchParams,
+	SEARCH_PARAM_OAUTH_SERVICE_TYPE
+} from '$lib/search_params';
+import { getUserByOAuthData } from '$lib/server/user/utils/get_user_by_oauth_data';
+import { makeJWT } from '$lib/server/jwt';
+import { JWT_SECRET } from '$lib/server/env';
 import { makeServices } from './services';
-import type { OAuthData } from '$lib/server/oauth';
-import { OAuthServiceType } from '$lib/server/oauth';
 
 /**
  * The server-side load function for:
- * `/api/auth/[oauth]?code=[string]&guest=[boolean]&tag=[string]`.
+ * `/api/auth/?code=[string]&tag=[string]`.
  */
 export async function GET(event: RequestEvent): Promise<Response> {
 	const parsedSearchParams = parseSearchParams(new URL(event.request.url));
@@ -31,7 +36,7 @@ export async function GET(event: RequestEvent): Promise<Response> {
 	}
 
 	const oauthData = await oauthService.getData(token);
-	console.log({ oauthData });
+	console.log({ oauthData }); // TODO: Remove this.
 
 	// If the user already exists in the database, log them in. Otherwise, create a new user.
 	const user = await getUserByOAuthData(
@@ -39,17 +44,23 @@ export async function GET(event: RequestEvent): Promise<Response> {
 		parsedSearchParams.authSearchParams.oauthServiceType,
 		oauthData
 	);
-	if (user) {
-		// TODO: Create a new JWT token and pass it as a cookie.
+	if (!user) {
+		// Redirect the user to the registration page to claim a username and associate it with their OAuth account.
+		return new Response('Redirecting to registration page', {
+			status: 302,
+			headers: {
+				Location: makeRegistrationURL(parsedSearchParams.authSearchParams.oauthServiceType)
+			}
+		});
 	}
 
-	// TODO: Redirect the user to the registration page to claim a username and associate it with their OAuth account.
-
-	return new Response('Logged in as guest', {
+	// Create a new JWT token and pass it as a cookie with their user ID.
+	const jwt = makeJWT(user.id, JWT_SECRET); // TODO: Verify in [hook](https://kit.svelte.dev/docs/hooks#server-hooks).
+	return new Response('Logged in', {
 		status: 302,
 		headers: {
-			'Set-Cookie': `guest=true; Path=/; Max-Age=604800`,
-			Location: `/`
+			'Set-Cookie': `jwt=${jwt}; Path=/; Max-Age=604800`,
+			Location: '/'
 		}
 	});
 }
@@ -83,34 +94,10 @@ function parseSearchParams(url: URL): {
 }
 
 /**
- * getUserByOAuthData gets the user by the OAuth data.
+ * makeRegistrationURL makes the URL to redirect the user to the registration page.
  */
-async function getUserByOAuthData(
-	userService: UserServiceInterface,
-	oauthServiceType: OAuthServiceType,
-	oauthData: OAuthData
-): Promise<User | null> {
-	let user: Promise<User | null>;
-	switch (oauthServiceType) {
-		case OAuthServiceType.GITHUB: {
-			user = userService.getUserByGitHubID({ github_id: oauthData.id });
-			break;
-		}
-
-		case OAuthServiceType.GOOGLE: {
-			user = userService.getUserByGoogleID({ google_id: oauthData.id });
-			break;
-		}
-
-		default: {
-			return null;
-		}
-	}
-
-	try {
-		return await user;
-	} catch (error) {
-		console.error('Failed to get user by OAuth data', { error });
-		return null;
-	}
+function makeRegistrationURL(oauthServiceType: OAuthServiceType): string {
+	const locationSearchParams = new URLSearchParams();
+	locationSearchParams.set(SEARCH_PARAM_OAUTH_SERVICE_TYPE, oauthServiceType);
+	return `/register?${locationSearchParams}`;
 }

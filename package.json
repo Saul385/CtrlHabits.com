@@ -32,6 +32,7 @@
 	"type": "module",
 	"dependencies": {
 		"@google-cloud/firestore": "^6.5.0",
+		"jsonwebtoken": "^9.0.0",
 		"svelte-modals": "^1.2.1"
 	}
 }

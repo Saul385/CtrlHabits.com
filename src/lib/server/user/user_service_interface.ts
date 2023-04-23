@@ -60,7 +60,7 @@ export interface AddUserRequest {
 	/**
 	 * tag is the user's tag.
 	 */
-	tag: string | null;
+	tag: string;
 
 	/**
 	 * oauth is the user's verified OAuth data.

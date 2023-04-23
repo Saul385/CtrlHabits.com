@@ -14,7 +14,6 @@ import type {
 	RemoveUserRequest,
 	UpdateUserRequest,
 	UpdateUserResponse,
-	User,
 	UserServiceInterface
 } from './user_service_interface';
 import type { FakeUserServiceData } from './fake_user_service';
@@ -24,7 +23,13 @@ export class LocalFakeUserService implements UserServiceInterface {
 	public readonly fakeUserService: FakeUserService;
 
 	constructor(public readonly path: string) {
-		const initialData: FakeUserServiceData = JSON.parse(readFileSync(path, 'utf-8'));
+		let initialData: FakeUserServiceData = {};
+		try {
+			initialData = JSON.parse(readFileSync(path, 'utf-8'));
+		} catch (error) {
+			console.log('Failed to read initial data from file', error);
+		}
+
 		this.fakeUserService = new FakeUserService(initialData);
 	}
 
@@ -38,11 +43,11 @@ export class LocalFakeUserService implements UserServiceInterface {
 	}
 
 	public async getUserByGitHubID(r: GetUserByGitHubIDRequest): Promise<GetUserByGitHubIDResponse> {
-		throw new Error('Method not implemented.');
+		return await this.fakeUserService.getUserByGitHubID(r);
 	}
 
 	public async getUserByGoogleID(r: GetUserByGoogleIDRequest): Promise<GetUserByGoogleIDResponse> {
-		throw new Error('Method not implemented.');
+		return await this.fakeUserService.getUserByGoogleID(r);
 	}
 
 	public async addUser(r: AddUserRequest): Promise<AddUserResponse> {
