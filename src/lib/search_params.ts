@@ -1,3 +1,4 @@
+// TODO: Move these to a more appropriate location.
 import { UserServiceType, parseUserServiceType } from '$lib/server/user';
 import { OAuthServiceType, parseOAuthServiceType } from '$lib/server/oauth';
 
@@ -23,7 +24,6 @@ export interface ExperimentSearchParams {
 export function parseAuthSearchParams(url: URL): AuthSearchParams {
 	return {
 		code: url.searchParams.get(SEARCH_PARAM_CODE) ?? undefined,
-		tag: url.searchParams.get(SEARCH_PARAM_TAG) ?? undefined,
 		oauthServiceType: parseOAuthServiceType(url.searchParams.get(SEARCH_PARAM_OAUTH_SERVICE_TYPE))
 	};
 }
@@ -36,11 +36,6 @@ export interface AuthSearchParams {
 	 * code is the code returned from the OAuth provider.
 	 */
 	code?: string;
-
-	/**
-	 * tag is the tag the user is trying to claim if they are registering.
-	 */
-	tag?: string;
 
 	/**
 	 * oauthServiceType is the type of OAuth service.
@@ -57,11 +52,6 @@ export const SEARCH_PARAM_USER_SERVICE_TYPE = 'user_service_type';
  * SEARCH_PARAM_OAUTH_SERVICE_TYPE is the search param for the OAuth service type.
  */
 export const SEARCH_PARAM_OAUTH_SERVICE_TYPE = 'oauth_service_type';
-
-/**
- * SEARCH_PARAM_TAG is the search param for the tag.
- */
-export const SEARCH_PARAM_TAG = 'tag';
 
 /**
  * SEARCH_PARAM_CODE is the search param for the code.

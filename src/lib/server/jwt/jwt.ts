@@ -4,6 +4,9 @@ import { sign, verify } from 'jsonwebtoken';
  * makeJWT creates a JWT string from a user ID.
  *
  * By default, the JWT expires in 1 week.
+ *
+ * See:
+ * https://github.com/auth0/node-jsonwebtoken#readme
  */
 export function makeJWT(id: string, secret: string): string {
 	return sign({ id }, secret, { expiresIn: '7d' });

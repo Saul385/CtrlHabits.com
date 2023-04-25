@@ -1,22 +1,27 @@
 import type { RequestEvent } from './$types';
-import type { OAuthServiceType } from '$lib/server/oauth';
+import { OAuthServiceType } from '$lib/server/oauth';
+import { makeOAuthService } from '$lib/server/oauth/utils/make_oauth_service';
+import type { User } from '$lib/server/user';
 import type { AuthSearchParams, ExperimentSearchParams } from '$lib/search_params';
-import {
-	parseAuthSearchParams,
-	parseExperimentSearchParams,
-	SEARCH_PARAM_OAUTH_SERVICE_TYPE
-} from '$lib/search_params';
+import { parseAuthSearchParams, parseExperimentSearchParams } from '$lib/search_params';
 import { getUserByOAuthData } from '$lib/server/user/utils/get_user_by_oauth_data';
+import { makeUserService } from '$lib/server/user/utils/make_user_service';
 import { makeJWT } from '$lib/server/jwt';
-import { JWT_SECRET } from '$lib/server/env';
-import { makeServices } from './services';
+import { JWT_COOKIE, JWT_SECRET } from '$lib/server/env';
+import { UserServiceType } from '$lib/server/user';
 
 /**
  * The server-side load function for:
- * `/api/auth/?code=[string]&tag=[string]`.
+ * `/api/auth/?code=[string]`.
  */
 export async function GET(event: RequestEvent): Promise<Response> {
-	const parsedSearchParams = parseSearchParams(new URL(event.request.url));
+	if (event.locals.user) {
+		// The user is already logged in.
+		return Response.redirect('/');
+	}
+
+	const url = new URL(event.request.url);
+	const parsedSearchParams = parseSearchParams(url);
 	if (!parsedSearchParams.authSearchParams.oauthServiceType) {
 		return ERROR_RESPONSE_UNKNOWN_OAUTH;
 	}
@@ -25,11 +30,10 @@ export async function GET(event: RequestEvent): Promise<Response> {
 		return ERROR_RESPONSE_MISSING_CODE;
 	}
 
-	const { oauthService, userService } = makeServices({
-		oauth: parsedSearchParams.authSearchParams.oauthServiceType,
-		user: parsedSearchParams.experimentSearchParams.userServiceType
-	});
-
+	// TODO: Change to GITHUB and FIRESTORE respectively once tests are done.
+	const oauthService = makeOAuthService(
+		parsedSearchParams.authSearchParams.oauthServiceType ?? OAuthServiceType.LOCAL_GITHUB
+	);
 	const token = await oauthService.verify(parsedSearchParams.authSearchParams.code);
 	if (!token) {
 		return ERROR_RESPONSE_INVALID_CODE;
@@ -39,28 +43,34 @@ export async function GET(event: RequestEvent): Promise<Response> {
 	console.log({ oauthData }); // TODO: Remove this.
 
 	// If the user already exists in the database, log them in. Otherwise, create a new user.
+	const userService = makeUserService(
+		parsedSearchParams.experimentSearchParams.userServiceType ?? UserServiceType.LOCAL // TODO: Change to FIRESTORE once tests are done.
+	);
 	const user = await getUserByOAuthData(
 		userService,
 		parsedSearchParams.authSearchParams.oauthServiceType,
 		oauthData
 	);
 	if (!user) {
-		// Redirect the user to the registration page to claim a username and associate it with their OAuth account.
-		return new Response('Redirecting to registration page', {
-			status: 302,
-			headers: {
-				Location: makeRegistrationURL(parsedSearchParams.authSearchParams.oauthServiceType)
-			}
-		});
+		const newUser = await userService.addUser({ oauthData });
+		return makeJWTResponse('/join', newUser);
 	}
 
+	return makeJWTResponse('/', user);
+}
+
+/**
+ * makeJWTResponse creates a response that sets a JWT cookie and redirects the user to
+ * the destination.
+ */
+function makeJWTResponse(destination: string, user: User): Response {
 	// Create a new JWT token and pass it as a cookie with their user ID.
-	const jwt = makeJWT(user.id, JWT_SECRET); // TODO: Verify in [hook](https://kit.svelte.dev/docs/hooks#server-hooks).
+	const jwt = makeJWT(user.id, JWT_SECRET);
 	return new Response('Logged in', {
 		status: 302,
 		headers: {
-			'Set-Cookie': `jwt=${jwt}; Path=/; Max-Age=604800`,
-			Location: '/'
+			'Set-Cookie': `${JWT_COOKIE}=${jwt}; Path=/; Max-Age=604800`,
+			Location: destination
 		}
 	});
 }
@@ -91,13 +101,4 @@ function parseSearchParams(url: URL): {
 		authSearchParams: parseAuthSearchParams(url),
 		experimentSearchParams: parseExperimentSearchParams(url)
 	};
-}
-
-/**
- * makeRegistrationURL makes the URL to redirect the user to the registration page.
- */
-function makeRegistrationURL(oauthServiceType: OAuthServiceType): string {
-	const locationSearchParams = new URLSearchParams();
-	locationSearchParams.set(SEARCH_PARAM_OAUTH_SERVICE_TYPE, oauthServiceType);
-	return `/register?${locationSearchParams}`;
 }

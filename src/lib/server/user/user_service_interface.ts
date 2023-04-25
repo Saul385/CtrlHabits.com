@@ -42,7 +42,7 @@ export interface UserServiceInterface {
 
 export interface User {
 	id: string;
-	tag: string;
+	tag: string | null;
 	bio: string;
 	avatar_url: string; // TODO: Verify that avatar_url has an allowed domain.
 	github_id: string | null;
@@ -54,18 +54,13 @@ export interface User {
 /**
  * AddUserRequest is the request to add a user to storage.
  *
- * TODO: Allow user to customize bio and avatar_url on signup.
+ * TODO: Allow user to customize tag, bio and avatar_url on signup.
  */
 export interface AddUserRequest {
 	/**
-	 * tag is the user's tag.
+	 * oauthData is the user's verified OAuth data.
 	 */
-	tag: string;
-
-	/**
-	 * oauth is the user's verified OAuth data.
-	 */
-	oauth: OAuthData;
+	oauthData: OAuthData;
 }
 
 /**

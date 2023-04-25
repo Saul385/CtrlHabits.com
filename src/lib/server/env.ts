@@ -39,6 +39,7 @@ export const FIRESTORE_PRIVATE_KEY = DEV_FLAG_ENABLED
 	? FIRESTORE_DEV_PRIVATE_KEY
 	: FIRESTORE_PROD_PRIVATE_KEY;
 
+export const JWT_COOKIE = 'jwt';
 export const JWT_SECRET = DEV_FLAG_ENABLED ? GITHUB_DEV_SECRET : GITHUB_PROD_SECRET;
 
 // TODO: Assign './dev/github_oauth.json' and './dev/users.json' to env variables.

@@ -31,9 +31,8 @@ export class FirestoreUserService implements UserServiceInterface {
 	// TODO: Look into best practices for creating a new user versus updating an existing user.
 	public async addUser(r: AddUserRequest): Promise<AddUserResponse> {
 		const timestamp = new Date().toISOString();
-		const blankUser = { id: '-1' };
-		const ref = await this.firestoreCollection.add(blankUser);
-		const newUser = makeNewUser(r, { id: ref.id, timestamp });
+		const ref = await this.firestoreCollection.add({});
+		const newUser = makeNewUser(r, { id: ref.id, timestamp, tag: null });
 
 		try {
 			// Check if tag is already in use. Tag must be unique.
@@ -46,11 +45,11 @@ export class FirestoreUserService implements UserServiceInterface {
 			// Add user to Firestore.
 			await ref.set(newUser);
 			return newUser;
-		} catch {}
-
-		// If there is an error, delete the user from Firestore.
-		await ref.delete();
-		throw new Error('Failed to add user.');
+		} catch {
+			// If there is an error, delete the user from Firestore.
+			await ref.delete();
+			throw new Error('Failed to add user.');
+		}
 	}
 
 	public async updateUser(r: UpdateUserRequest): Promise<UpdateUserResponse> {
