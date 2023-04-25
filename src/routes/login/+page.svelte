@@ -1,10 +1,8 @@
 <script>
-	import {app} from '../../firebase';
+	import { app } from '../../firebase';
 	import { getFirestore } from 'firebase/firestore';
 	import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 	import { goto } from '$app/navigation';
-
-
 
 	//Initialize auth
 	const auth = getAuth();

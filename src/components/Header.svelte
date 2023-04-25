@@ -10,9 +10,8 @@
 
 		<!--Header Links-->
 		<nav class="headerLinks">
-			<a href="/">Home</a>
-			<a href="/goals">Goals</a>
-			<a href="/friends">Friends</a>
+			<a href="/">HOME</a>
+			<a href="/goals">CHECK-IN</a>
 		</nav>
 
 		<!--Profile Image-->
@@ -29,10 +28,11 @@
 <style>
 	.headerContainer {
 		width: 100%;
+		border-bottom: 2px solid;
+		border-color: white;
 	}
 	.header {
 		display: flex;
-		border-bottom: 2px solid;
 	}
 	.headerLinks {
 		width: 100%;
@@ -40,7 +40,7 @@
 		margin: auto;
 	}
 	.headerLinks a {
-		color: #05386b;
+		color: white;
 		text-decoration: none;
 		font-family: arial;
 		font-size: 1.7vw;
@@ -54,12 +54,12 @@
 		text-decoration: underline;
 	}
 	.logo {
-		width: min(50vw, 250px);
+		width: min(30vw, 150px);
 	}
 	.profileImage {
 		width: min(25vw, 100px);
 		border-radius: 30px;
-		margin-top: 60px;
-		margin-right: 20px;
+		margin-top: 30px;
+
 	}
 </style>

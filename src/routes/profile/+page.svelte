@@ -1,5 +1,5 @@
 <script>
-	import Header from '../../components/navbarHome.svelte';
+	import Header from '../../components/Header.svelte';
 	import { app } from '../../firebase.js';
 	import { collection, addDoc } from 'firebase/firestore';
 	import { initializeApp } from 'firebase/app';
