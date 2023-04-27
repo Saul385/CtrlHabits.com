@@ -14,8 +14,10 @@ import {
 	FIRESTORE_PROD_CLIENT_EMAIL as STRING_FIRESTORE_PROD_CLIENT_EMAIL,
 	FIRESTORE_DEV_CLIENT_EMAIL as STRING_FIRESTORE_DEV_CLIENT_EMAIL,
 	FIRESTORE_PROD_PRIVATE_KEY as STRING_FIRESTORE_PROD_PRIVATE_KEY,
-	FIRESTORE_DEV_PRIVATE_KEY as STRING_FIRESTORE_DEV_PRIVATE_KEY
+	FIRESTORE_DEV_PRIVATE_KEY as STRING_FIRESTORE_DEV_PRIVATE_KEY,
+	USER_SERVICE_TYPE as STRING_USER_SERVICE_TYPE
 } from '$env/static/public';
+import { parseUserServiceType, UserServiceType } from './user';
 
 export const GITHUB_PROD_SECRET = STRING_GITHUB_PROD_SECRET;
 export const GITHUB_DEV_SECRET = STRING_GITHUB_DEV_SECRET;
@@ -39,9 +41,12 @@ export const FIRESTORE_PRIVATE_KEY = DEV_FLAG_ENABLED
 	? FIRESTORE_DEV_PRIVATE_KEY
 	: FIRESTORE_PROD_PRIVATE_KEY;
 
-export const JWT_COOKIE = 'jwt';
+export const JWT_COOKIE = DEV_FLAG_ENABLED ? 'jwt_dev' : 'jwt';
 export const JWT_SECRET = DEV_FLAG_ENABLED ? GITHUB_DEV_SECRET : GITHUB_PROD_SECRET;
 
-// TODO: Assign './dev/github_oauth.json' and './dev/users.json' to env variables.
-export const LOCAL_GITHUB_OAUTH_PATH = './dev/github_oauth.json';
-export const LOCAL_USERS_PATH = './dev/users.json';
+export const USER_SERVICE_TYPE =
+	parseUserServiceType(STRING_USER_SERVICE_TYPE) ??
+	(DEV_FLAG_ENABLED ? UserServiceType.LOCAL : UserServiceType.FIRESTORE);
+
+export const LOCAL_GITHUB_OAUTH_SERVICE_PATH = './dev/github_oauth.json';
+export const LOCAL_USER_SERVICE_PATH = './dev/users.json';

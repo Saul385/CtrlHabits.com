@@ -6,8 +6,7 @@ import {
 } from '$env/static/public';
 
 export const DEV_FLAG_ENABLED = parseBoolean(STRING_DEV_FLAG_ENABLED);
+
 export const GITHUB_PROD_CLIENT = STRING_GITHUB_PROD_CLIENT;
 export const GITHUB_DEV_CLIENT = STRING_GITHUB_DEV_CLIENT;
 export const GITHUB_CLIENT = DEV_FLAG_ENABLED ? GITHUB_DEV_CLIENT : GITHUB_PROD_CLIENT;
-
-export const LOCAL_STORAGE_KEY_EXPERIMENT_PARAMS = 'experiment_params';
