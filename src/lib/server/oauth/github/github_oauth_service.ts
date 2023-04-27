@@ -1,3 +1,4 @@
+import { OAuthServiceType } from '$lib/oauth';
 import type { OAuthServiceInterface, OAuthData } from '../oauth_service_interface';
 
 /**
@@ -35,6 +36,7 @@ export class GitHubOAuthService implements OAuthServiceInterface {
 
 		const data = await response.json();
 		const result: OAuthData = {
+			type: OAuthServiceType.GITHUB,
 			id: data.id,
 			tag: data.login,
 			bio: data.bio,

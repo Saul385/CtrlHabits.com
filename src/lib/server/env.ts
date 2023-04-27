@@ -16,7 +16,7 @@ import {
 	USER_SERVICE_TYPE as STRING_USER_SERVICE_TYPE
 } from '$env/static/public';
 import { DEV_FLAG_ENABLED } from '$lib/env';
-import { parseUserServiceType, UserServiceType } from '$lib/user';
+import { parseUserServiceType } from '$lib/user';
 
 export const GITHUB_PROD_SECRET = STRING_GITHUB_PROD_SECRET;
 export const GITHUB_DEV_SECRET = STRING_GITHUB_DEV_SECRET;
@@ -43,9 +43,11 @@ export const FIRESTORE_PRIVATE_KEY = DEV_FLAG_ENABLED
 export const JWT_COOKIE = DEV_FLAG_ENABLED ? 'jwt_dev' : 'jwt';
 export const JWT_SECRET = DEV_FLAG_ENABLED ? GITHUB_DEV_SECRET : GITHUB_PROD_SECRET;
 
-export const USER_SERVICE_TYPE =
-	parseUserServiceType(STRING_USER_SERVICE_TYPE) ??
-	(DEV_FLAG_ENABLED ? UserServiceType.LOCAL : UserServiceType.FIRESTORE);
+// @typescript-eslint/no-non-null-assertion
+export const USER_SERVICE_TYPE = parseUserServiceType(STRING_USER_SERVICE_TYPE)!;
+if (!USER_SERVICE_TYPE) {
+	throw new Error(`Invalid USER_SERVICE_TYPE: ${STRING_USER_SERVICE_TYPE}`);
+}
 
 export const LOCAL_GITHUB_OAUTH_SERVICE_PATH = './dev/fake_github_oauth_service.json';
 export const LOCAL_USER_SERVICE_PATH = './dev/fake_user_service.json';

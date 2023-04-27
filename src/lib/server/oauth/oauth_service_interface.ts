@@ -1,3 +1,5 @@
+import type { OAuthServiceType } from '$lib/oauth';
+
 /**
  * OAuthServiceInterface is the interface for OAuth services.
  */
@@ -23,6 +25,7 @@ export interface OAuthServiceInterface {
  * OAuthData is the data returned from an OAuth provider.
  */
 export interface OAuthData {
+	type: OAuthServiceType;
 	id: string;
 	tag: string;
 	bio: string;

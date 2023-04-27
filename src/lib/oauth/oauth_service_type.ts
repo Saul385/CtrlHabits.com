@@ -11,9 +11,7 @@ export enum OAuthServiceType {
 /**
  * parseOAuthServiceType parses an OAuthServiceType from a string.
  */
-export function parseOAuthServiceType(
-	oauthServiceType: string | null
-): OAuthServiceType | undefined {
+export function parseOAuthServiceType(oauthServiceType: string | null): OAuthServiceType | null {
 	switch (oauthServiceType) {
 		case OAuthServiceType.GITHUB: {
 			return OAuthServiceType.GITHUB;
@@ -32,7 +30,7 @@ export function parseOAuthServiceType(
 		}
 
 		default: {
-			return;
+			return null;
 		}
 	}
 }

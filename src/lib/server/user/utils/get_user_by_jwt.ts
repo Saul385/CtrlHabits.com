@@ -22,8 +22,13 @@ export function makeGetUserByJWTHook(secret: string): Handle {
 		const userService = makeUserService(USER_SERVICE_TYPE);
 
 		// Get the user by the JWT.
-		event.locals.user = await getUserByJWT(userService, jwt, secret);
-		console.log('event.locals.user', event.locals.user); // TODO: Remove this.
+		event.locals.user = await getUserByJWT(userService, jwt, secret)
+			.then((user) => user)
+			.catch((error) => {
+				console.error(error);
+				return null;
+			});
+
 		return resolve(event);
 	};
 }

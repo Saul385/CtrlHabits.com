@@ -1,6 +1,7 @@
 import { test, expect } from 'vitest';
 import type { FakeGitHubOAuthServiceData } from './fake_github_oauth_service';
 import { FakeGitHubOAuthService } from './fake_github_oauth_service';
+import { OAuthServiceType } from '$lib/oauth';
 
 const FAKE_CODE_01 = 'code_01';
 const FAKE_TOKEN_01 = 'token_01';
@@ -8,6 +9,7 @@ const FAKE_DATA: FakeGitHubOAuthServiceData = {
 	tokens: { [FAKE_CODE_01]: FAKE_TOKEN_01 },
 	users: {
 		[FAKE_TOKEN_01]: {
+			type: OAuthServiceType.LOCAL_GITHUB,
 			id: '01',
 			tag: 'JohnDoe',
 			bio: 'I am John Doe',
@@ -30,6 +32,7 @@ test('FakeGitHubOAuthService.verify throws an error for an invalid code', async 
 test('FakeGitHubOAuthService.getData returns valid data for a valid token', async () => {
 	const fakeService = new FakeGitHubOAuthService(FAKE_DATA);
 	const data = await fakeService.getData(FAKE_TOKEN_01);
+	expect(data.type).toEqual(OAuthServiceType.LOCAL_GITHUB);
 	expect(data.id).toEqual('01');
 	expect(data.tag).toEqual('JohnDoe');
 	expect(data.bio).toEqual('I am John Doe');

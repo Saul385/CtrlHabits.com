@@ -9,7 +9,7 @@ export enum UserServiceType {
 /**
  * parseUserServiceType parses a string into a UserServiceType.
  */
-export function parseUserServiceType(userServiceType: string | null): UserServiceType | undefined {
+export function parseUserServiceType(userServiceType: string | null): UserServiceType | null {
 	switch (userServiceType) {
 		case UserServiceType.LOCAL: {
 			return UserServiceType.LOCAL;
@@ -20,7 +20,7 @@ export function parseUserServiceType(userServiceType: string | null): UserServic
 		}
 
 		default: {
-			return;
+			return null;
 		}
 	}
 }

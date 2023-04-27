@@ -15,7 +15,10 @@ import { parseAuthSearchParams } from './search_params';
 export async function GET(event: RequestEvent): Promise<Response> {
 	if (event.locals.user) {
 		// The user is already logged in.
-		return Response.redirect('/');
+		return new Response('Logged in', {
+			status: 302,
+			headers: { Location: '/' }
+		});
 	}
 
 	const oauthServiceType = parseOAuthServiceType(event.params.oauth_service_type);
@@ -23,9 +26,9 @@ export async function GET(event: RequestEvent): Promise<Response> {
 		return ERROR_RESPONSE_UNKNOWN_OAUTH;
 	}
 
-	const oauthService = makeOAuthService(oauthServiceType);
 	const url = new URL(event.request.url);
 	const parsedSearchParams = parseAuthSearchParams(url);
+	const oauthService = makeOAuthService(oauthServiceType);
 	if (!parsedSearchParams.code) {
 		return Response.redirect(oauthService.getURL());
 	}
@@ -41,9 +44,10 @@ export async function GET(event: RequestEvent): Promise<Response> {
 	// If the user already exists in the database, log them in. Otherwise, create a new user.
 	const userService = makeUserService(USER_SERVICE_TYPE);
 	const user = await getUserByOAuthData(userService, oauthServiceType, oauthData);
+	console.log({ user, oauthServiceType, oauthData });
 	if (!user) {
 		const newUser = await userService.addUser({ oauthData });
-		return makeJWTResponse('/join', newUser);
+		return makeJWTResponse('/claim', newUser);
 	}
 
 	return makeJWTResponse('/', user);

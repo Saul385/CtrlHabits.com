@@ -7,5 +7,5 @@ import { parseOAuthServiceType } from '$lib/oauth';
  * https://kit.svelte.dev/docs/advanced-routing#matching
  */
 export function match(param: string): boolean {
-	return parseOAuthServiceType(param) !== undefined;
+	return parseOAuthServiceType(param) !== null;
 }
