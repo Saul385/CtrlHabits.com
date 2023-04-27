@@ -1,5 +1,4 @@
 import { writeFileSync, readFileSync } from 'node:fs';
-
 import type {
 	AddUserRequest,
 	AddUserResponse,
@@ -9,6 +8,8 @@ import type {
 	GetUserByGoogleIDResponse,
 	GetUserByIDRequest,
 	GetUserByIDResponse,
+	GetUserByTagRequest,
+	GetUserByTagResponse,
 	ListUsersRequest,
 	ListUsersResponse,
 	RemoveUserRequest,
@@ -48,6 +49,10 @@ export class LocalFakeUserService implements UserServiceInterface {
 
 	public async getUserByGoogleID(r: GetUserByGoogleIDRequest): Promise<GetUserByGoogleIDResponse> {
 		return await this.fakeUserService.getUserByGoogleID(r);
+	}
+
+	public async getUserByTag(r: GetUserByTagRequest): Promise<GetUserByTagResponse> {
+		return await this.fakeUserService.getUserByTag(r);
 	}
 
 	public async addUser(r: AddUserRequest): Promise<AddUserResponse> {

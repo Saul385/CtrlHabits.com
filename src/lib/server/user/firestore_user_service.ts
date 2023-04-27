@@ -8,6 +8,8 @@ import type {
 	GetUserByGoogleIDResponse,
 	GetUserByIDRequest,
 	GetUserByIDResponse,
+	GetUserByTagRequest,
+	GetUserByTagResponse,
 	ListUsersRequest,
 	ListUsersResponse,
 	RemoveUserRequest,
@@ -28,28 +30,12 @@ export class FirestoreUserService implements UserServiceInterface {
 		this.firestoreCollection = firestoreClient.collection(firestoreCollectionName);
 	}
 
-	// TODO: Look into best practices for creating a new user versus updating an existing user.
 	public async addUser(r: AddUserRequest): Promise<AddUserResponse> {
 		const timestamp = new Date().toISOString();
 		const ref = await this.firestoreCollection.add({});
 		const newUser = makeNewUser(r, { id: ref.id, timestamp, tag: null });
-
-		try {
-			// Check if tag is already in use. Tag must be unique.
-			const query = this.firestoreCollection.where('tag', '==', newUser.tag);
-			const snapshot = await query.get();
-			if (snapshot.size > 0) {
-				throw new Error(`Tag ${newUser.tag} is already in use.`);
-			}
-
-			// Add user to Firestore.
-			await ref.set(newUser);
-			return newUser;
-		} catch {
-			// If there is an error, delete the user from Firestore.
-			await ref.delete();
-			throw new Error('Failed to add user.');
-		}
+		await ref.set(newUser);
+		return newUser;
 	}
 
 	public async updateUser(r: UpdateUserRequest): Promise<UpdateUserResponse> {
@@ -89,6 +75,16 @@ export class FirestoreUserService implements UserServiceInterface {
 		const snapshot = await query.get();
 		if (snapshot.size === 0) {
 			throw new Error(`User with GitHub ID ${r.github_id} not found.`);
+		}
+
+		return snapshot.docs[0].data() as User;
+	}
+
+	public async getUserByTag(r: GetUserByTagRequest): Promise<GetUserByTagResponse> {
+		const query = this.firestoreCollection.where('tag', '==', r.tag);
+		const snapshot = await query.get();
+		if (snapshot.size === 0) {
+			throw new Error(`User with tag ${r.tag} not found.`);
 		}
 
 		return snapshot.docs[0].data() as User;

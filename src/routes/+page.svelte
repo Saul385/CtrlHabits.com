@@ -4,10 +4,14 @@
 -->
 <script>
 	import Navbar from './navbarLanding.svelte';
+	import OAuthMenu from '$lib/components/oauth_menu.svelte';
 </script>
 
 <body>
 	<Navbar />
+
+	<OAuthMenu dev={true} />
+
 	<div class="heatmap">
 		<h1>Temporary Heatmap</h1>
 		<img src="https://cdn.ourcodeworld.com/public-media/gallery/gallery-59aa72259592f.png" alt="" />

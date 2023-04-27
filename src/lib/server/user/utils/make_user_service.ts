@@ -1,10 +1,10 @@
 import { Firestore } from '@google-cloud/firestore';
 import type { UserServiceInterface } from '$lib/server/user';
-import { UserServiceType } from '$lib/server/user';
+import { UserServiceType } from '$lib/user';
 import { FirestoreUserService } from '$lib/server/user/firestore_user_service';
 import { LocalFakeUserService } from '$lib/server/user/local_fake_user_service';
 import {
-	LOCAL_USERS_PATH,
+	LOCAL_USER_SERVICE_PATH,
 	FIRESTORE_CLIENT_EMAIL,
 	FIRESTORE_PRIVATE_KEY,
 	FIRESTORE_PROJECT_ID
@@ -17,7 +17,7 @@ export function makeUserService(userServiceType: UserServiceType): UserServiceIn
 	switch (userServiceType) {
 		// Note: The following switch statement cases change according to enum UserServiceType.
 		case UserServiceType.LOCAL: {
-			return new LocalFakeUserService(LOCAL_USERS_PATH);
+			return new LocalFakeUserService(LOCAL_USER_SERVICE_PATH);
 		}
 
 		case UserServiceType.FIRESTORE: {

@@ -1,5 +1,3 @@
-import { DEV_FLAG_ENABLED } from '$lib/env';
-
 /**
  * In SvelteKit, environment variables are imported from a special $env module.
  *
@@ -17,7 +15,8 @@ import {
 	FIRESTORE_DEV_PRIVATE_KEY as STRING_FIRESTORE_DEV_PRIVATE_KEY,
 	USER_SERVICE_TYPE as STRING_USER_SERVICE_TYPE
 } from '$env/static/public';
-import { parseUserServiceType, UserServiceType } from './user';
+import { DEV_FLAG_ENABLED } from '$lib/env';
+import { parseUserServiceType, UserServiceType } from '$lib/user';
 
 export const GITHUB_PROD_SECRET = STRING_GITHUB_PROD_SECRET;
 export const GITHUB_DEV_SECRET = STRING_GITHUB_DEV_SECRET;
@@ -48,5 +47,5 @@ export const USER_SERVICE_TYPE =
 	parseUserServiceType(STRING_USER_SERVICE_TYPE) ??
 	(DEV_FLAG_ENABLED ? UserServiceType.LOCAL : UserServiceType.FIRESTORE);
 
-export const LOCAL_GITHUB_OAUTH_SERVICE_PATH = './dev/github_oauth.json';
-export const LOCAL_USER_SERVICE_PATH = './dev/users.json';
+export const LOCAL_GITHUB_OAUTH_SERVICE_PATH = './dev/fake_github_oauth_service.json';
+export const LOCAL_USER_SERVICE_PATH = './dev/fake_user_service.json';

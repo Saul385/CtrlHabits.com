@@ -1,0 +1,11 @@
+{
+	"tokens": { "fake_code_001": "fake_token_001" },
+	"users": {
+		"fake_token_001": {
+			"id": "001",
+			"tag": "JohnDoe",
+			"bio": "I am John Doe",
+			"avatar_url": "https://placekitten.com/g/150/150"
+		}
+	}
+}

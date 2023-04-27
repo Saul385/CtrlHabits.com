@@ -30,6 +30,11 @@ export interface UserServiceInterface {
 	getUserByGoogleID(r: GetUserByGoogleIDRequest): Promise<GetUserByGoogleIDResponse>;
 
 	/**
+	 * getUserByTag gets a user from storage by tag.
+	 */
+	getUserByTag(r: GetUserByTagRequest): Promise<GetUserByTagResponse>;
+
+	/**
 	 * listUsers lists all users in storage.
 	 */
 	listUsers(r: ListUsersRequest): Promise<ListUsersResponse>;
@@ -122,6 +127,18 @@ export interface GetUserByGoogleIDRequest {
 export type GetUserByGoogleIDResponse = User;
 
 /**
+ * GetUserByTagRequest is the request to get a single user from storage.
+ */
+export interface GetUserByTagRequest {
+	tag: string;
+}
+
+/**
+ * GetUserByTagResponse is the response from getting a user from storage.
+ */
+export type GetUserByTagResponse = User;
+
+/**
  * ListUsersRequest is the request to list users from storage.
  */
 export interface ListUsersRequest {
@@ -142,29 +159,4 @@ export interface ListUsersResponse {
  */
 export interface RemoveUserRequest {
 	id: string;
-}
-
-/**
- * UserServiceType is the type of user service.
- */
-export enum UserServiceType {
-	LOCAL = 'local',
-	FIRESTORE = 'firestore'
-}
-
-/**
- * parseUserServiceType parses a string into a UserServiceType.
- */
-export function parseUserServiceType(userServiceType: string | null): UserServiceType | undefined {
-	switch (userServiceType) {
-		case 'local': {
-			return UserServiceType.LOCAL;
-		}
-		case 'firestore': {
-			return UserServiceType.FIRESTORE;
-		}
-		default: {
-			return;
-		}
-	}
 }

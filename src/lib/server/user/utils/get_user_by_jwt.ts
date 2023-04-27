@@ -1,9 +1,7 @@
 import type { Handle } from '@sveltejs/kit';
 import type { User, UserServiceInterface } from '$lib/server/user';
-import { UserServiceType } from '$lib/server/user';
 import { verifyJWT } from '$lib/server/jwt';
-import { JWT_COOKIE } from '$lib/server/env';
-import { parseExperimentSearchParams } from '$lib/search_params';
+import { JWT_COOKIE, USER_SERVICE_TYPE } from '$lib/server/env';
 import { makeUserService } from './make_user_service';
 
 /**
@@ -21,11 +19,7 @@ export function makeGetUserByJWTHook(secret: string): Handle {
 		}
 
 		// Parse the user service from the URL params.
-		const url = new URL(event.request.url);
-		const experimentSearchParams = parseExperimentSearchParams(url);
-		const userService = makeUserService(
-			experimentSearchParams.userServiceType ?? UserServiceType.LOCAL // TODO: Change to FIRESTORE once tests are done.
-		);
+		const userService = makeUserService(USER_SERVICE_TYPE);
 
 		// Get the user by the JWT.
 		event.locals.user = await getUserByJWT(userService, jwt, secret);

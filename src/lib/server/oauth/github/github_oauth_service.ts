@@ -44,4 +44,10 @@ export class GitHubOAuthService implements OAuthServiceInterface {
 		console.log({ data, result }); // TODO: This is for testing. Delete me later!
 		return result;
 	}
+
+	public getURL(): URL {
+		const url = new URL('https://github.com/login/oauth/authorize');
+		url.searchParams.append('client_id', this.clientID);
+		return url;
+	}
 }

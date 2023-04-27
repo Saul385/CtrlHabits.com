@@ -7,6 +7,8 @@ import type {
 	GetUserByGoogleIDResponse,
 	GetUserByIDRequest,
 	GetUserByIDResponse,
+	GetUserByTagRequest,
+	GetUserByTagResponse,
 	ListUsersRequest,
 	ListUsersResponse,
 	RemoveUserRequest,
@@ -35,16 +37,6 @@ export class FakeUserService implements UserServiceInterface {
 	public async addUser(r: AddUserRequest): Promise<AddUserResponse> {
 		const options = getNewUserOptions();
 		const newUser = makeNewUser(r, options);
-
-		// Check if the tag is already taken.
-		for (const userID in this.data) {
-			const user = this.data[userID];
-			if (user.tag === newUser.tag) {
-				return Promise.reject(new Error(`tag ${newUser.tag} is already taken`));
-			}
-		}
-
-		// Add the user.
 		this.data[options.id] = newUser;
 		return Promise.resolve(newUser);
 	}
@@ -100,6 +92,15 @@ export class FakeUserService implements UserServiceInterface {
 
 	public async getUserByGoogleID(r: GetUserByGoogleIDRequest): Promise<GetUserByGoogleIDResponse> {
 		const user = Object.values(this.data).find((u) => u.google_id === r.google_id);
+		if (user) {
+			return Promise.resolve(user);
+		}
+
+		return Promise.reject(ERROR_USER_NOT_FOUND);
+	}
+
+	public async getUserByTag(r: GetUserByTagRequest): Promise<GetUserByTagResponse> {
+		const user = Object.values(this.data).find((u) => u.tag === r.tag);
 		if (user) {
 			return Promise.resolve(user);
 		}

@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { OAuthServiceType } from '$lib/server/oauth';
+import { OAuthServiceType } from '$lib/oauth';
 import type { AddUserRequest, User } from './user_service_interface';
 
 /**

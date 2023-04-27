@@ -33,4 +33,8 @@ export class FakeGitHubOAuthService implements OAuthServiceInterface {
 
 		return user;
 	}
+
+	public getURL(): URL {
+		throw new Error('Not implemented');
+	}
 }
