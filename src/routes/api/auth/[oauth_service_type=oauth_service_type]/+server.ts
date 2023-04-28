@@ -13,19 +13,21 @@ import { parseAuthSearchParams } from './search_params';
  * `/api/auth/[oauth_service_type]/?code=[code]`
  */
 export async function GET(event: RequestEvent): Promise<Response> {
+	// If the user is already logged in, redirect them to the home page.
 	if (event.locals.user) {
-		// The user is already logged in.
 		return new Response('Logged in', {
 			status: 302,
 			headers: { Location: '/' }
 		});
 	}
 
+	// Parse the OAuth service type from the pathname.
 	const oauthServiceType = parseOAuthServiceType(event.params.oauth_service_type);
 	if (!oauthServiceType) {
 		return ERROR_RESPONSE_UNKNOWN_OAUTH;
 	}
 
+	// If the user does not have a code, redirect them to the OAuth provider.
 	const url = new URL(event.request.url);
 	const parsedSearchParams = parseAuthSearchParams(url);
 	const oauthService = makeOAuthService(oauthServiceType);
@@ -33,23 +35,25 @@ export async function GET(event: RequestEvent): Promise<Response> {
 		return Response.redirect(oauthService.getURL());
 	}
 
+	// Verify the code and get the OAuth data.
 	const token = await oauthService.verify(parsedSearchParams.code);
 	if (!token) {
 		return ERROR_RESPONSE_INVALID_CODE;
 	}
 
+	// Get the user's OAuth data.
 	const oauthData = await oauthService.getData(token);
 	console.log({ oauthData }); // TODO: Remove this.
 
-	// If the user already exists in the database, log them in. Otherwise, create a new user.
+	// Create a new user if they do not exist.
 	const userService = makeUserService(USER_SERVICE_TYPE);
 	const user = await getUserByOAuthData(userService, oauthServiceType, oauthData);
-	console.log({ user, oauthServiceType, oauthData });
 	if (!user) {
 		const newUser = await userService.addUser({ oauthData });
 		return makeJWTResponse('/claim', newUser);
 	}
 
+	// Otherwise, log the user in.
 	return makeJWTResponse('/', user);
 }
 
