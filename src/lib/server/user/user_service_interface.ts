@@ -2,6 +2,9 @@ import type { OAuthData } from '$lib/server/oauth/oauth_service_interface';
 
 /**
  * UserServiceInterface is the interface for the user service.
+ *
+ * TODO(EthanThatOneKid):
+ * Rename to `$lib/server/habits/habits_service_interface.ts`.
  */
 export interface UserServiceInterface {
 	/**
