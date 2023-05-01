@@ -1,11 +1,18 @@
 {
-	"tokens": { "fake_code_001": "fake_token_001" },
+	"tokens": { "fake_code_001": "fake_token_001", "fake_code_002": "fake_token_002" },
 	"users": {
 		"fake_token_001": {
 			"type": "local_github",
 			"id": "001",
 			"tag": "JohnDoe",
 			"bio": "I am John Doe",
+			"avatar_url": "https://placekitten.com/g/150/150"
+		},
+		"fake_token_002": {
+			"type": "local_github",
+			"id": "002",
+			"tag": "JaneDoe",
+			"bio": "I am Jane Doe",
 			"avatar_url": "https://placekitten.com/g/150/150"
 		}
 	}

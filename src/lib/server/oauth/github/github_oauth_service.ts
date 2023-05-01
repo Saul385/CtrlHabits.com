@@ -22,7 +22,6 @@ export class GitHubOAuthService implements OAuthServiceInterface {
 		});
 
 		const data = await response.json();
-		console.log({ data }); // TODO: This is for testing. Delete me later!
 		return data.access_token;
 	}
 
