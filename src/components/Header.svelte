@@ -38,12 +38,13 @@
 		width: 100%;
 		display: flex;
 		margin: auto;
+		margin-bottom: 10px;
 	}
 	.headerLinks a {
 		color: white;
 		text-decoration: none;
 		font-family: arial;
-		font-size: 1.7vw;
+		font-size: 1.4vw;
 		font-weight: normal;
 		display: flex;
 		margin: auto;

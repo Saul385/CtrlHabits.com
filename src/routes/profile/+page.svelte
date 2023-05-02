@@ -1,19 +1,17 @@
 <script>
 	import Header from '../../components/Header.svelte';
-	import { app } from '../../firebase.js';
-	import { collection, addDoc } from 'firebase/firestore';
-	import { initializeApp } from 'firebase/app';
-
-	// try {
-	// const docRef = await addDoc(collection(db, "users"), {
-	//     first: "Ada",
-	//     last: "Lovelace",
-	//     born: 1815
-	// });
-	// console.log("Document written with ID: ", docRef.id);
-	// } catch (e) {
-	// console.error("Error adding document: ", e);
-	// }
+	import Habits from '../../components/Habits.svelte';
+	import ProfileInfo from '../../components/ProfileInfo.svelte';
+	import HabitHistory from '../../components/HabitHistory.svelte';
+	import Friends from '../../components/Friends.svelte';
 </script>
 
-<body class="homeBody" />
+
+<Header />
+<ProfileInfo />
+<Habits />
+<HabitHistory />
+<Friends />
+
+<style>
+</style>

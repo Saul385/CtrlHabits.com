@@ -3,7 +3,6 @@
 	let days = [];
 	let startDate = new Date('January 1 2023');
 
-
 	for (let i = 0; i < 365; i++) {
 		let logDate = new Date(startDate).setDate(i + 1);
 		let date = new Date(logDate);
@@ -16,7 +15,8 @@
 		};
 		if (i % 2 == 0 && i % 3 == 0) {
 			Day.goal1 = '"Lost 1/2 a pound"';
-		} if (i % 3 == 0) {
+		}
+		if (i % 3 == 0) {
 			Day.goal2 = '"Read 10 pages"';
 		}
 		if (i % 7 == 0) {
