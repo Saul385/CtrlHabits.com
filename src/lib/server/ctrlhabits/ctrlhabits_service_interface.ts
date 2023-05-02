@@ -6,7 +6,7 @@ import type { OAuthData } from '$lib/server/oauth/oauth_service_interface';
  * TODO(EthanThatOneKid):
  * Rename to `$lib/server/habits/habits_service_interface.ts`.
  */
-export interface UserServiceInterface {
+export interface CTRLHabitsServiceInterface {
 	/**
 	 * addUser adds a user to storage. If the user already exists, it throws an error.
 	 */
@@ -46,8 +46,26 @@ export interface UserServiceInterface {
 	 * removeUser removes a user from storage.
 	 */
 	removeUser(r: RemoveUserRequest): Promise<void>;
+
+	/**
+	 * addHabit adds a habit to storage. If the habit already exists, it throws an error.
+	 */
+	// addHabit(r: AddHabitRequest): Promise<AddHabitResponse>;
+
+	/**
+	 * updateHabit updates an existing habit in storage.
+	 */
+	// updateHabit(r: UpdateHabitRequest): Promise<UpdateHabitResponse>;
+
+	// /**
+	//  * getHabitByID gets a habit from storage by ID.
+	//  */
+	// getHabitByID(r: GetHabitByIDRequest): Promise<GetHabitByIDResponse>;
 }
 
+/**
+ * User is a user as stored in storage.
+ */
 export interface User {
 	id: string;
 	tag: string | null;
@@ -163,3 +181,36 @@ export interface ListUsersResponse {
 export interface RemoveUserRequest {
 	id: string;
 }
+
+/**
+ * Habit is a habit as stored in storage.
+ */
+export interface Habit {
+	id: string;
+	name: string;
+	private: boolean;
+	description: string;
+	frequency: number;
+	start_date: string;
+	end_date: string;
+	user_id: number;
+	created_at: string;
+	updated_at: string;
+}
+
+/**
+ * AddHabitRequest is the request to add a habit to storage.
+ */
+export interface AddHabitRequest {
+	name: string;
+	description: string;
+	frequency: number;
+	start_date: string;
+	end_date: string;
+	user_id: number;
+}
+
+/**
+ * AddHabitResponse is the response from adding a habit to storage.
+ */
+export type AddHabitResponse = Habit;

@@ -15,66 +15,66 @@ import type {
 	RemoveUserRequest,
 	UpdateUserRequest,
 	UpdateUserResponse,
-	UserServiceInterface
-} from './user_service_interface';
-import type { FakeUserServiceData } from './fake_user_service';
-import { FakeUserService } from './fake_user_service';
+	CTRLHabitsServiceInterface
+} from './ctrlhabits_service_interface';
+import type { FakeCTRLHabitsServiceData } from './fake_ctrlhabits_service';
+import { FakeCTRLHabitsService } from './fake_ctrlhabits_service';
 
-export class LocalFakeUserService implements UserServiceInterface {
-	public readonly fakeUserService: FakeUserService;
+export class LocalFakeCTRLHabitsService implements CTRLHabitsServiceInterface {
+	public readonly fakeCTRLHabitsService: FakeCTRLHabitsService;
 
 	constructor(public readonly path: string) {
-		let initialData: FakeUserServiceData = {};
+		let initialData: FakeCTRLHabitsServiceData = {};
 		try {
 			initialData = JSON.parse(readFileSync(path, 'utf-8'));
 		} catch (error) {
 			console.log('Failed to read initial data from file', error);
 		}
 
-		this.fakeUserService = new FakeUserService(initialData);
+		this.fakeCTRLHabitsService = new FakeCTRLHabitsService(initialData);
 	}
 
 	public async removeUser(r: RemoveUserRequest): Promise<void> {
-		await this.fakeUserService.removeUser(r);
+		await this.fakeCTRLHabitsService.removeUser(r);
 		await this.save();
 	}
 
 	public async getUserByID(r: GetUserByIDRequest): Promise<GetUserByIDResponse> {
-		return await this.fakeUserService.getUserByID(r);
+		return await this.fakeCTRLHabitsService.getUserByID(r);
 	}
 
 	public async getUserByGitHubID(r: GetUserByGitHubIDRequest): Promise<GetUserByGitHubIDResponse> {
-		return await this.fakeUserService.getUserByGitHubID(r);
+		return await this.fakeCTRLHabitsService.getUserByGitHubID(r);
 	}
 
 	public async getUserByGoogleID(r: GetUserByGoogleIDRequest): Promise<GetUserByGoogleIDResponse> {
-		return await this.fakeUserService.getUserByGoogleID(r);
+		return await this.fakeCTRLHabitsService.getUserByGoogleID(r);
 	}
 
 	public async getUserByTag(r: GetUserByTagRequest): Promise<GetUserByTagResponse> {
-		return await this.fakeUserService.getUserByTag(r);
+		return await this.fakeCTRLHabitsService.getUserByTag(r);
 	}
 
 	public async addUser(r: AddUserRequest): Promise<AddUserResponse> {
-		const user = await this.fakeUserService.addUser(r);
+		const user = await this.fakeCTRLHabitsService.addUser(r);
 		await this.save();
 		return user;
 	}
 
 	public async updateUser(r: UpdateUserRequest): Promise<UpdateUserResponse> {
-		const user = await this.fakeUserService.updateUser(r);
+		const user = await this.fakeCTRLHabitsService.updateUser(r);
 		await this.save();
 		return user;
 	}
 
 	public async listUsers(r: ListUsersRequest): Promise<ListUsersResponse> {
-		return await this.fakeUserService.listUsers(r);
+		return await this.fakeCTRLHabitsService.listUsers(r);
 	}
 
 	/**
 	 * save saves the current state of the user service to disk.
 	 */
 	private save(): void {
-		writeFileSync(this.path, JSON.stringify(this.fakeUserService.data, null, 2));
+		writeFileSync(this.path, JSON.stringify(this.fakeCTRLHabitsService.data, null, 2));
 	}
 }

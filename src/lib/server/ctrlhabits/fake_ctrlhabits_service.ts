@@ -15,24 +15,22 @@ import type {
 	UpdateUserRequest,
 	UpdateUserResponse,
 	User,
-	UserServiceInterface
-} from './user_service_interface';
+	CTRLHabitsServiceInterface
+} from './ctrlhabits_service_interface';
 import { ERROR_USER_NOT_FOUND, getNewUserOptions, makeNewUser } from './new_user';
 
 /**
- * FakeUserServiceData is the data used by FakeUserService.
+ * FakeCTRLHabitsServiceData is the data used by FakeUserService.
  */
-export interface FakeUserServiceData {
+export interface FakeCTRLHabitsServiceData {
 	[user_id: string]: User;
 }
 
 /**
- * FakeUserService is a fake user service that stores users in memory.
- *
- * TODO: Implement a real user service, such as SupabaseUserService or FirestoreUserService.
+ * FakeCTRLHabitsService is a fake user service that stores users in memory.
  */
-export class FakeUserService implements UserServiceInterface {
-	constructor(public readonly data: FakeUserServiceData = {}) {}
+export class FakeCTRLHabitsService implements CTRLHabitsServiceInterface {
+	constructor(public readonly data: FakeCTRLHabitsServiceData = {}) {}
 
 	public async addUser(r: AddUserRequest): Promise<AddUserResponse> {
 		const options = getNewUserOptions();

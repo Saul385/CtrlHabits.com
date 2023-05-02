@@ -1,7 +1,7 @@
 import { sequence } from '@sveltejs/kit/hooks';
-import { makeGetUserByJWTHook } from '$lib/server/user/utils/get_user_by_jwt';
+import { makeGetUserByJWTHook } from '$lib/server/ctrlhabits/utils/get_user_by_jwt';
 import { JWT_SECRET } from '$lib/server/env';
-import { makeUnclaimedTagHook } from '$lib/server/user/utils/make_unclaimed_tag_hook';
+import { makeUnclaimedTagHook } from '$lib/server/ctrlhabits/utils/make_unclaimed_tag_hook';
 
 /**
  * See:

@@ -13,11 +13,11 @@ import {
 	FIRESTORE_DEV_CLIENT_EMAIL as STRING_FIRESTORE_DEV_CLIENT_EMAIL,
 	FIRESTORE_PROD_PRIVATE_KEY as STRING_FIRESTORE_PROD_PRIVATE_KEY,
 	FIRESTORE_DEV_PRIVATE_KEY as STRING_FIRESTORE_DEV_PRIVATE_KEY,
-	USER_SERVICE_TYPE as STRING_USER_SERVICE_TYPE,
+	CTRLHABITS_SERVICE_TYPE as STRING_CTRLHABITS_SERVICE_TYPE,
 	JWT_SECRET as STRING_JWT_SECRET
 } from '$env/static/public';
 import { DEV_FLAG_ENABLED } from '$lib/env';
-import { parseUserServiceType } from '$lib/user';
+import { parseCTRLHabitsServiceType } from '$lib/ctrlhabits';
 
 export const GITHUB_PROD_SECRET = STRING_GITHUB_PROD_SECRET;
 export const GITHUB_DEV_SECRET = STRING_GITHUB_DEV_SECRET;
@@ -45,9 +45,9 @@ export const JWT_COOKIE = DEV_FLAG_ENABLED ? 'jwt_dev' : 'jwt';
 export const JWT_SECRET = STRING_JWT_SECRET;
 
 // @typescript-eslint/no-non-null-assertion
-export const USER_SERVICE_TYPE = parseUserServiceType(STRING_USER_SERVICE_TYPE)!;
-if (!USER_SERVICE_TYPE) {
-	throw new Error(`Invalid USER_SERVICE_TYPE: ${STRING_USER_SERVICE_TYPE}`);
+export const CTRLHABITS_SERVICE_TYPE = parseCTRLHabitsServiceType(STRING_CTRLHABITS_SERVICE_TYPE)!;
+if (!CTRLHABITS_SERVICE_TYPE) {
+	throw new Error(`Invalid USER_SERVICE_TYPE: ${STRING_CTRLHABITS_SERVICE_TYPE}`);
 }
 
 export const LOCAL_GITHUB_OAUTH_SERVICE_PATH = './dev/fake_github_oauth_service.json';

@@ -1,8 +1,8 @@
 import type { Handle } from '@sveltejs/kit';
-import type { User, UserServiceInterface } from '$lib/server/user';
+import type { User, CTRLHabitsServiceInterface } from '$lib/server/ctrlhabits';
 import { verifyJWT } from '$lib/server/jwt';
-import { JWT_COOKIE, USER_SERVICE_TYPE } from '$lib/server/env';
-import { makeUserService } from './make_user_service';
+import { JWT_COOKIE, CTRLHABITS_SERVICE_TYPE } from '$lib/server/env';
+import { makeCTRLHabitsService } from './make_ctrlhabits_service';
 
 /**
  * makeGetUserByJWTHook makes a hook that gets the user by the JWT.
@@ -19,7 +19,7 @@ export function makeGetUserByJWTHook(secret: string): Handle {
 		}
 
 		// Parse the user service from the URL params.
-		const userService = makeUserService(USER_SERVICE_TYPE);
+		const userService = makeCTRLHabitsService(CTRLHABITS_SERVICE_TYPE);
 
 		// Get the user by the JWT.
 		event.locals.user = await getUserByJWT(userService, jwt, secret)
@@ -37,7 +37,7 @@ export function makeGetUserByJWTHook(secret: string): Handle {
  * getUserByJWT gets the user by the JWT.
  */
 export async function getUserByJWT(
-	userService: UserServiceInterface,
+	ctrlhabitsService: CTRLHabitsServiceInterface,
 	jwt: string,
 	secret: string
 ): Promise<User | null> {
@@ -46,5 +46,5 @@ export async function getUserByJWT(
 		return null;
 	}
 
-	return await userService.getUserByID({ id: userID });
+	return await ctrlhabitsService.getUserByID({ id: userID });
 }

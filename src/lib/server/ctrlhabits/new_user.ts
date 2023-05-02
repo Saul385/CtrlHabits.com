@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { parseGitHubID, parseGoogleID } from '$lib/server/oauth/utils/parse_oauth_id';
-import type { AddUserRequest, User } from './user_service_interface';
+import type { AddUserRequest, User } from './ctrlhabits_service_interface';
 
 /**
  * NewUserOptions is the data needed to create a new user in the database that was not provided by the request.

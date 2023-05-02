@@ -1,10 +1,10 @@
 import type { RequestEvent } from './$types';
-import type { User } from '$lib/server/user';
-import { getUserByOAuthData } from '$lib/server/user/utils/get_user_by_oauth_data';
-import { makeUserService } from '$lib/server/user/utils/make_user_service';
+import type { User } from '$lib/server/ctrlhabits';
+import { getUserByOAuthData } from '$lib/server/ctrlhabits/utils/get_user_by_oauth_data';
+import { makeCTRLHabitsService } from '$lib/server/ctrlhabits/utils/make_ctrlhabits_service';
 import { makeJWT } from '$lib/server/jwt';
 import { makeOAuthService } from '$lib/server/oauth/utils/make_oauth_service';
-import { JWT_COOKIE, JWT_SECRET, USER_SERVICE_TYPE } from '$lib/server/env';
+import { JWT_COOKIE, JWT_SECRET, CTRLHABITS_SERVICE_TYPE } from '$lib/server/env';
 import { parseOAuthServiceType } from '$lib/oauth';
 import { parseAuthSearchParams } from './search_params';
 
@@ -46,10 +46,10 @@ export async function GET(event: RequestEvent): Promise<Response> {
 	console.log({ oauthData }); // TODO: Remove this.
 
 	// Create a new user if they do not exist.
-	const userService = makeUserService(USER_SERVICE_TYPE);
-	const user = await getUserByOAuthData(userService, oauthServiceType, oauthData);
+	const ctrlhabitsService = makeCTRLHabitsService(CTRLHABITS_SERVICE_TYPE);
+	const user = await getUserByOAuthData(ctrlhabitsService, oauthServiceType, oauthData);
 	if (!user) {
-		const newUser = await userService.addUser({ oauthData });
+		const newUser = await ctrlhabitsService.addUser({ oauthData });
 		return makeJWTResponse('/claim', newUser);
 	}
 

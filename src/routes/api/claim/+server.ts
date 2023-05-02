@@ -1,6 +1,6 @@
 import type { RequestEvent } from './$types';
-import { USER_SERVICE_TYPE } from '$lib/server/env';
-import { makeUserService } from '$lib/server/user/utils/make_user_service';
+import { CTRLHABITS_SERVICE_TYPE } from '$lib/server/env';
+import { makeCTRLHabitsService } from '$lib/server/ctrlhabits/utils/make_ctrlhabits_service';
 
 /**
  * The server-side load function for:
@@ -25,8 +25,8 @@ export async function POST(event: RequestEvent): Promise<Response> {
 	}
 
 	// Check if the chosen tag is available. If so, return an error.
-	const userService = makeUserService(USER_SERVICE_TYPE);
-	const existingUser = await userService
+	const ctrlhabitsService = makeCTRLHabitsService(CTRLHABITS_SERVICE_TYPE);
+	const existingUser = await ctrlhabitsService
 		.getUserByTag({ tag })
 		.then((user) => user)
 		.catch((error) => {
@@ -38,7 +38,7 @@ export async function POST(event: RequestEvent): Promise<Response> {
 	}
 
 	// Otherwise, associate the tag with the user.
-	await userService.updateUser({
+	await ctrlhabitsService.updateUser({
 		id: event.locals.user.id,
 		tag
 	});

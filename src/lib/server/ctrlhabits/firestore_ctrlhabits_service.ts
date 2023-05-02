@@ -16,11 +16,11 @@ import type {
 	UpdateUserRequest,
 	UpdateUserResponse,
 	User,
-	UserServiceInterface
-} from './user_service_interface';
+	CTRLHabitsServiceInterface
+} from './ctrlhabits_service_interface';
 import { makeNewUser } from './new_user';
 
-export class FirestoreUserService implements UserServiceInterface {
+export class FirestoreCTRLHabitsService implements CTRLHabitsServiceInterface {
 	public readonly firestoreCollection: CollectionReference<DocumentData>;
 
 	constructor(
