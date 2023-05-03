@@ -1,4 +1,4 @@
-import type { AddHabitRequest, ID, Habit } from './ctrlhabits_service_interface';
+import type { AddHabitRequest, Habit, ID } from './ctrlhabits_service_interface';
 import { getCurrentTimestamp, makeUUID } from './utils/get_storage_options';
 
 /**

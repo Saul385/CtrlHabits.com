@@ -1,13 +1,13 @@
+import type { RequestEvent } from './$types';
 import type { AddHabitRequest, ID } from '$lib/server/ctrlhabits';
 import { makeCTRLHabitsService } from '$lib/server/ctrlhabits/utils/make_ctrlhabits_service';
 import { CTRLHABITS_SERVICE_TYPE } from '$lib/server/env';
-import type { RequestEvent } from './$types';
+import { parseBoolean } from '$lib/parse_boolean';
 
 /**
  * The server-side load function for:
  * `POST /api/habits`
  */
-
 export async function POST(event: RequestEvent): Promise<Response> {
 	// Check if the user is logged in. If not, return an error.
 	if (event.locals.user === null) {
@@ -19,52 +19,67 @@ export async function POST(event: RequestEvent): Promise<Response> {
 		return new Response('Forbidden', { status: 403 });
 	}
 
-	// Get the tag from the form data. If it is missing, return an error.
+	// Get the habit data from the form data.
 	const formData = await event.request.formData();
 	const addHabitRequest = makeAddHabitRequest(formData, event.locals.user.id);
-	const tag = formData.get('tag');
-	if (typeof tag !== 'string') {
-		return new Response("Missing 'tag' in form data", { status: 400 });
+	if (addHabitRequest.error !== null) {
+		return new Response(addHabitRequest.error, { status: 400 });
 	}
 
 	// Check if the chosen tag is available. If so, return an error.
 	const ctrlhabitsService = makeCTRLHabitsService(CTRLHABITS_SERVICE_TYPE);
-	const existingUser = await ctrlhabitsService
-		.addHabit({
-			description,
-			end_date,
-			frequency,
-			name,
-			private,
-			start_date,
-			user_id: event.locals.user.id
-		})
-		.then((user) => user)
-		.catch((error) => {
-			console.error(error);
-			return null;
-		});
-	if (existingUser) {
-		return new Response('Tag already taken', { status: 409 });
-	}
+	const habit = await ctrlhabitsService.addHabit(addHabitRequest.request);
+	return new Response(JSON.stringify(habit), { status: 200 });
 }
+
+/**
+ * The server-side load function for:
+ * `PATCH /api/habits`
+ */
 
 function makeAddHabitRequest(
 	formData: FormData,
 	userID: ID
-): { request?: AddHabitRequest; error: string | null } {
+): { request: AddHabitRequest; error: null } | { request: null; error: string } {
 	const name = formData.get('name');
 	if (typeof name !== 'string') {
-		return { error: "Missing 'tag' in form data" };
+		return { error: "Missing 'name' in form data", request: null };
 	}
 
-	// TODO(EthanThatOneKid): Finish this.
-	const description;
+	const description = formData.get('description');
+	if (typeof description !== 'string') {
+		return { error: "Missing 'description' in form data", request: null };
+	}
+
+	const frequency = formData.get('frequency');
+	if (typeof frequency !== 'string') {
+		return { error: "Missing 'frequency' in form data", request: null };
+	}
+
+	const start_date = formData.get('start_date');
+	if (typeof start_date !== 'string') {
+		return { error: "Missing 'start_date' in form data", request: null };
+	}
+
+	const end_date = formData.get('end_date');
+	if (typeof end_date !== 'string') {
+		return { error: "Missing 'end_date' in form data", request: null };
+	}
+
+	const isPrivate = formData.get('private');
+	if (typeof isPrivate !== 'string') {
+		return { error: "Missing 'private' in form data", request: null };
+	}
 
 	return {
 		request: {
 			name,
-			desc
+			description,
+			frequency: parseFloat(frequency),
+			start_date,
+			end_date,
+			private: parseBoolean(isPrivate),
+			user_id: userID
 		},
 		error: null
 	};

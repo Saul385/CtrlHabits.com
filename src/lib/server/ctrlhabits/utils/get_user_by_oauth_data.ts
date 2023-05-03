@@ -1,4 +1,4 @@
-import type { User, CTRLHabitsServiceInterface } from '$lib/server/ctrlhabits';
+import type { CTRLHabitsServiceInterface, User } from '$lib/server/ctrlhabits';
 import type { OAuthData } from '$lib/server/oauth';
 import { OAuthServiceType } from '$lib/oauth';
 
@@ -15,12 +15,16 @@ export async function getUserByOAuthData(
 	let userPromise: Promise<User | null>;
 	switch (oauthServiceType) {
 		case (OAuthServiceType.GITHUB, OAuthServiceType.LOCAL_GITHUB): {
-			userPromise = ctrlhabitsService.getUserByGitHubID({ github_id: oauthData.id });
+			userPromise = ctrlhabitsService.getUserByGitHubID({
+				github_id: oauthData.id
+			});
 			break;
 		}
 
 		case (OAuthServiceType.GOOGLE, OAuthServiceType.LOCAL_GOOGLE): {
-			userPromise = ctrlhabitsService.getUserByGoogleID({ google_id: oauthData.id });
+			userPromise = ctrlhabitsService.getUserByGoogleID({
+				google_id: oauthData.id
+			});
 			break;
 		}
 

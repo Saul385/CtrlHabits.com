@@ -1,5 +1,5 @@
 import { OAuthServiceType } from '$lib/oauth';
-import type { OAuthServiceInterface, OAuthData } from '../oauth_service_interface';
+import type { OAuthData, OAuthServiceInterface } from '../oauth_service_interface';
 
 /**
  * GitHubOAuthService is the service for GitHub OAuth.

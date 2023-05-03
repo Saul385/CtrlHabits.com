@@ -1,4 +1,4 @@
-import { test, expect } from 'vitest';
+import { expect, test } from 'vitest';
 import type { FakeGitHubOAuthServiceData } from './fake_github_oauth_service';
 import { FakeGitHubOAuthService } from './fake_github_oauth_service';
 import { OAuthServiceType } from '$lib/oauth';

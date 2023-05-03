@@ -62,7 +62,9 @@ To install and run CtrlHabits, follow these steps:
 
 ### Environment variables
 
-Our application uses environment variables to store sensitive information. Make a new file called `.env` in the root directory of the project and add the following variables:
+Our application uses environment variables to store sensitive information. Make
+a new file called `.env` in the root directory of the project and add the
+following variables:
 
 ```sh
 DEV_FLAG_ENABLED=1

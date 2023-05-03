@@ -4,7 +4,7 @@ import { getUserByOAuthData } from '$lib/server/ctrlhabits/utils/get_user_by_oau
 import { makeCTRLHabitsService } from '$lib/server/ctrlhabits/utils/make_ctrlhabits_service';
 import { makeJWT } from '$lib/server/jwt';
 import { makeOAuthService } from '$lib/server/oauth/utils/make_oauth_service';
-import { JWT_COOKIE, JWT_SECRET, CTRLHABITS_SERVICE_TYPE } from '$lib/server/env';
+import { CTRLHABITS_SERVICE_TYPE, JWT_COOKIE, JWT_SECRET } from '$lib/server/env';
 import { parseOAuthServiceType } from '$lib/oauth';
 import { parseAuthSearchParams } from './search_params';
 

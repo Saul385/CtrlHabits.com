@@ -4,10 +4,10 @@ import { CTRLHabitsServiceType } from '$lib/ctrlhabits';
 import { FirestoreCTRLHabitsService } from '$lib/server/ctrlhabits/firestore_ctrlhabits_service';
 import { LocalFakeCTRLHabitsService } from '$lib/server/ctrlhabits/local_fake_ctrlhabits_service';
 import {
-	LOCAL_CTRLHABITS_SERVICE_PATH,
 	FIRESTORE_CLIENT_EMAIL,
 	FIRESTORE_PRIVATE_KEY,
-	FIRESTORE_PROJECT_ID
+	FIRESTORE_PROJECT_ID,
+	LOCAL_CTRLHABITS_SERVICE_PATH
 } from '$lib/server/env';
 
 /**

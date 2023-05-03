@@ -1,5 +1,8 @@
 {
-	"tokens": { "fake_code_001": "fake_token_001", "fake_code_002": "fake_token_002" },
+	"tokens": {
+		"fake_code_001": "fake_token_001",
+		"fake_code_002": "fake_token_002"
+	},
 	"users": {
 		"fake_token_001": {
 			"type": "local_github",

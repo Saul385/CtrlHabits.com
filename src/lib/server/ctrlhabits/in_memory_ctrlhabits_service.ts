@@ -1,6 +1,9 @@
 import type {
+	AddHabitRequest,
+	AddHabitResponse,
 	AddUserRequest,
 	AddUserResponse,
+	CTRLHabitsServiceInterface,
 	GetUserByGitHubIDRequest,
 	GetUserByGitHubIDResponse,
 	GetUserByGoogleIDRequest,
@@ -9,25 +12,22 @@ import type {
 	GetUserByIDResponse,
 	GetUserByTagRequest,
 	GetUserByTagResponse,
+	Habit,
+	ID,
 	ListUsersRequest,
 	ListUsersResponse,
 	RemoveUserRequest,
 	UpdateUserRequest,
 	UpdateUserResponse,
-	User,
-	CTRLHabitsServiceInterface,
-	ID,
-	Habit,
-	AddHabitRequest,
-	AddHabitResponse
+	User
 } from './ctrlhabits_service_interface';
 import { makeNewHabit } from './new_habit';
 import { ERROR_USER_NOT_FOUND, getNewUserOptions, makeNewUser } from './new_user';
 
 /**
- * FakeCTRLHabitsServiceData is the data used by FakeUserService.
+ * InMemoryCTRLHabitsServiceData is the data used by InMemoryCTRLHabitsService.
  */
-export interface FakeCTRLHabitsServiceData {
+export interface InMemoryCTRLHabitsServiceData {
 	users: {
 		[user_id: ID]: User;
 	};
@@ -37,12 +37,18 @@ export interface FakeCTRLHabitsServiceData {
 }
 
 /**
- * FakeCTRLHabitsService is a fake user service that stores users in memory.
- *
- * TODO(EthanThatOneKid): Rename this.
+ * DEFAULT_IN_MEMORY_CTRLHABITS_SERVICE_DATA is the default data used by InMemoryCTRLHabitsService.
  */
-export class FakeCTRLHabitsService implements CTRLHabitsServiceInterface {
-	constructor(public readonly data: FakeCTRLHabitsServiceData = { users: {}, habits: {} }) {}
+export const DEFAULT_IN_MEMORY_CTRLHABITS_SERVICE_DATA: InMemoryCTRLHabitsServiceData = {
+	users: {},
+	habits: {}
+};
+
+/**
+ * InMemoryCTRLHabitsService is a fake user service that stores users in memory.
+ */
+export class InMemoryCTRLHabitsService implements CTRLHabitsServiceInterface {
+	constructor(public readonly data = DEFAULT_IN_MEMORY_CTRLHABITS_SERVICE_DATA) {}
 
 	public async addUser(r: AddUserRequest): Promise<AddUserResponse> {
 		const options = getNewUserOptions();

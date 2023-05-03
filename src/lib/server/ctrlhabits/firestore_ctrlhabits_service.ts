@@ -1,7 +1,10 @@
-import type { Firestore, CollectionReference, DocumentData } from '@google-cloud/firestore';
+import type { CollectionReference, DocumentData, Firestore } from '@google-cloud/firestore';
 import type {
+	AddHabitRequest,
+	AddHabitResponse,
 	AddUserRequest,
 	AddUserResponse,
+	CTRLHabitsServiceInterface,
 	GetUserByGitHubIDRequest,
 	GetUserByGitHubIDResponse,
 	GetUserByGoogleIDRequest,
@@ -15,10 +18,7 @@ import type {
 	RemoveUserRequest,
 	UpdateUserRequest,
 	UpdateUserResponse,
-	User,
-	CTRLHabitsServiceInterface,
-	AddHabitRequest,
-	AddHabitResponse
+	User
 } from './ctrlhabits_service_interface';
 import { makeNewHabit } from './new_habit';
 import { makeNewUser } from './new_user';

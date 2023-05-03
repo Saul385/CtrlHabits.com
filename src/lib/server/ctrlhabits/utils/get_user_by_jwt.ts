@@ -1,7 +1,7 @@
 import type { Handle } from '@sveltejs/kit';
-import type { User, CTRLHabitsServiceInterface } from '$lib/server/ctrlhabits';
+import type { CTRLHabitsServiceInterface, User } from '$lib/server/ctrlhabits';
 import { verifyJWT } from '$lib/server/jwt';
-import { JWT_COOKIE, CTRLHABITS_SERVICE_TYPE } from '$lib/server/env';
+import { CTRLHABITS_SERVICE_TYPE, JWT_COOKIE } from '$lib/server/env';
 import { makeCTRLHabitsService } from './make_ctrlhabits_service';
 
 /**
