@@ -7,7 +7,7 @@
 -->
 <script>
 	import { openModal } from 'svelte-modals';
-	import Modal from '../components/Modal.svelte';
+	import Modal from '$lib/components/modal.svelte';
 
 	function handleClick() {
 		openModal(Modal, {});
