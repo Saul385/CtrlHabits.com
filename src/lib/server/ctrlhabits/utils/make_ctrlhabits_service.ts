@@ -2,7 +2,7 @@ import { Firestore } from '@google-cloud/firestore';
 import type { CTRLHabitsServiceInterface } from '$lib/server/ctrlhabits';
 import { CTRLHabitsServiceType } from '$lib/ctrlhabits';
 import { FirestoreCTRLHabitsService } from '$lib/server/ctrlhabits/firestore_ctrlhabits_service';
-import { LocalFakeCTRLHabitsService } from '$lib/server/ctrlhabits/local_fake_ctrlhabits_service';
+import { FileSystemCTRLHabitsService } from '$lib/server/ctrlhabits/file_system_ctrlhabits_service';
 import {
 	FIRESTORE_CLIENT_EMAIL,
 	FIRESTORE_PRIVATE_KEY,
@@ -19,7 +19,7 @@ export function makeCTRLHabitsService(
 	switch (ctrlhabitsServiceType) {
 		// Note: The following switch statement cases change according to enum UserServiceType.
 		case CTRLHabitsServiceType.LOCAL: {
-			return new LocalFakeCTRLHabitsService(LOCAL_CTRLHABITS_SERVICE_PATH);
+			return new FileSystemCTRLHabitsService(LOCAL_CTRLHABITS_SERVICE_PATH);
 		}
 
 		case CTRLHabitsServiceType.FIRESTORE: {

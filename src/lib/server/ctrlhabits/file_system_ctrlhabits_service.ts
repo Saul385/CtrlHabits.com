@@ -23,7 +23,7 @@ import type { InMemoryCTRLHabitsServiceData } from './in_memory_ctrlhabits_servi
 import { DEFAULT_IN_MEMORY_CTRLHABITS_SERVICE_DATA } from './in_memory_ctrlhabits_service';
 import { InMemoryCTRLHabitsService } from './in_memory_ctrlhabits_service';
 
-export class LocalFakeCTRLHabitsService implements CTRLHabitsServiceInterface {
+export class FileSystemCTRLHabitsService implements CTRLHabitsServiceInterface {
 	public readonly inMemoryCTRLHabitsService: InMemoryCTRLHabitsService;
 
 	constructor(public readonly path: string) {
