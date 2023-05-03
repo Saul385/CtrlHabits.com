@@ -15,7 +15,10 @@ import type {
 	RemoveUserRequest,
 	UpdateUserRequest,
 	UpdateUserResponse,
-	CTRLHabitsServiceInterface
+	CTRLHabitsServiceInterface,
+	AddHabitRequest,
+	Habit,
+	AddHabitResponse
 } from './ctrlhabits_service_interface';
 import type { FakeCTRLHabitsServiceData } from './fake_ctrlhabits_service';
 import { FakeCTRLHabitsService } from './fake_ctrlhabits_service';
@@ -24,7 +27,7 @@ export class LocalFakeCTRLHabitsService implements CTRLHabitsServiceInterface {
 	public readonly fakeCTRLHabitsService: FakeCTRLHabitsService;
 
 	constructor(public readonly path: string) {
-		let initialData: FakeCTRLHabitsServiceData = {};
+		let initialData: FakeCTRLHabitsServiceData = { users: {}, habits: {} };
 		try {
 			initialData = JSON.parse(readFileSync(path, 'utf-8'));
 		} catch (error) {
@@ -69,6 +72,12 @@ export class LocalFakeCTRLHabitsService implements CTRLHabitsServiceInterface {
 
 	public async listUsers(r: ListUsersRequest): Promise<ListUsersResponse> {
 		return await this.fakeCTRLHabitsService.listUsers(r);
+	}
+
+	public async addHabit(r: AddHabitRequest): Promise<AddHabitResponse> {
+		const habit = await this.fakeCTRLHabitsService.addHabit(r);
+		await this.save();
+		return habit;
 	}
 
 	/**

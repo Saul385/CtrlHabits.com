@@ -1,6 +1,11 @@
 import type { OAuthData } from '$lib/server/oauth/oauth_service_interface';
 
 /**
+ * ID is an alias for the string type.
+ */
+export type ID = string;
+
+/**
  * UserServiceInterface is the interface for the user service.
  *
  * TODO(EthanThatOneKid):
@@ -50,7 +55,7 @@ export interface CTRLHabitsServiceInterface {
 	/**
 	 * addHabit adds a habit to storage. If the habit already exists, it throws an error.
 	 */
-	// addHabit(r: AddHabitRequest): Promise<AddHabitResponse>;
+	addHabit(r: AddHabitRequest): Promise<AddHabitResponse>;
 
 	/**
 	 * updateHabit updates an existing habit in storage.
@@ -67,12 +72,12 @@ export interface CTRLHabitsServiceInterface {
  * User is a user as stored in storage.
  */
 export interface User {
-	id: string;
+	id: ID;
 	tag: string | null;
 	bio: string;
 	avatar_url: string; // TODO: Verify that avatar_url has an allowed domain.
-	github_id: string | null;
-	google_id: string | null; // Unimplemented.
+	github_id: ID | null;
+	google_id: ID | null; // Unimplemented.
 	created_at: string;
 	updated_at: string;
 }
@@ -98,12 +103,12 @@ export type AddUserResponse = User;
  * UpdateUserRequest is the request to update a user in storage.
  */
 export interface UpdateUserRequest {
-	id: string;
+	id: ID;
 	tag?: string;
 	bio?: string;
 	avatar_url?: string; // TODO: Verify that avatar_url has an allowed domain.
-	github_id?: string | null;
-	google_id?: string | null;
+	github_id?: ID | null;
+	google_id?: ID | null;
 }
 
 /**
@@ -115,7 +120,7 @@ export type UpdateUserResponse = User;
  * GetUserByIDRequest is the request to get a single user from storage.
  */
 export interface GetUserByIDRequest {
-	id: string;
+	id: ID;
 }
 
 /**
@@ -127,7 +132,7 @@ export type GetUserByIDResponse = User;
  * GetUserByGitHubIDRequest is the request to get a single user from storage.
  */
 export interface GetUserByGitHubIDRequest {
-	github_id: string;
+	github_id: ID;
 }
 
 /**
@@ -139,7 +144,7 @@ export type GetUserByGitHubIDResponse = User;
  * GetUserByGoogleIDRequest is the request to get a single user from storage.
  */
 export interface GetUserByGoogleIDRequest {
-	google_id: string;
+	google_id: ID;
 }
 
 /**
@@ -179,21 +184,21 @@ export interface ListUsersResponse {
  * RemoveUserRequest is the request to remove a user from storage.
  */
 export interface RemoveUserRequest {
-	id: string;
+	id: ID;
 }
 
 /**
  * Habit is a habit as stored in storage.
  */
 export interface Habit {
-	id: string;
+	id: ID;
 	name: string;
 	private: boolean;
 	description: string;
 	frequency: number;
 	start_date: string;
 	end_date: string;
-	user_id: number;
+	user_id: ID;
 	created_at: string;
 	updated_at: string;
 }
@@ -207,7 +212,8 @@ export interface AddHabitRequest {
 	frequency: number;
 	start_date: string;
 	end_date: string;
-	user_id: number;
+	user_id: ID;
+	private: boolean;
 }
 
 /**

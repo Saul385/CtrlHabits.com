@@ -51,4 +51,4 @@ if (!CTRLHABITS_SERVICE_TYPE) {
 }
 
 export const LOCAL_GITHUB_OAUTH_SERVICE_PATH = './dev/fake_github_oauth_service.json';
-export const LOCAL_USER_SERVICE_PATH = './dev/fake_user_service.json';
+export const LOCAL_CTRLHABITS_SERVICE_PATH = './dev/fake_ctrlhabits_service.json';

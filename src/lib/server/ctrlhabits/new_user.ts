@@ -1,6 +1,6 @@
-import { randomUUID } from 'node:crypto';
 import { parseGitHubID, parseGoogleID } from '$lib/server/oauth/utils/parse_oauth_id';
 import type { AddUserRequest, User } from './ctrlhabits_service_interface';
+import { getCurrentTimestamp, makeUUID } from './utils/get_storage_options';
 
 /**
  * NewUserOptions is the data needed to create a new user in the database that was not provided by the request.
@@ -39,20 +39,6 @@ export function getNewUserOptions(): NewUserOptions {
 		tag: null,
 		timestamp: getCurrentTimestamp()
 	};
-}
-
-/**
- * makeUUID generates a random UUID.
- */
-export function makeUUID(): string {
-	return randomUUID();
-}
-
-/**
- * getCurrentTimestamp gets the current timestamp in ISO format.
- */
-export function getCurrentTimestamp(date: Date = new Date()): string {
-	return date.toISOString();
 }
 
 /**
