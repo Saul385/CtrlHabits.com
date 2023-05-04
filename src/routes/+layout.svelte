@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { Modals, closeModal } from 'svelte-modals';
 	import App from '../firebase';
 	import { goto } from '$app/navigation';

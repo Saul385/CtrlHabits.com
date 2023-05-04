@@ -15,6 +15,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.5.0",
+		"@types/jsonwebtoken": "^9.0.2",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
 		"eslint": "^8.28.0",
@@ -31,7 +32,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"firebase": "^9.17.2",
+		"@google-cloud/firestore": "^6.5.0",
+		"jsonwebtoken": "^9.0.0",
 		"svelte-modals": "^1.2.1"
 	}
 }
