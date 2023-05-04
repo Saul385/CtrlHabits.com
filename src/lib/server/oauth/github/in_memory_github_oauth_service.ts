@@ -3,18 +3,18 @@ import type { OAuthData, OAuthServiceInterface } from '../oauth_service_interfac
 /**
  * FakeGitHubOAuthServiceData is the data used by FakeGitHubOAuthService.
  */
-export interface FakeGitHubOAuthServiceData {
+export interface InMemoryGitHubOAuthServiceData {
 	tokens: { [code: string]: string };
 	users: { [token: string]: OAuthData };
 }
 
 /**
- * FakeGitHubOAuthService is a fake GitHub OAuth service used for testing or local development.
+ * InMemoryGitHubOAuthService is a fake GitHub OAuth service used for testing or local development.
  *
  * This class is NOT intended to be used in production.
  */
-export class FakeGitHubOAuthService implements OAuthServiceInterface {
-	constructor(private readonly data: FakeGitHubOAuthServiceData) {}
+export class InMemoryGitHubOAuthService implements OAuthServiceInterface {
+	constructor(private readonly data: InMemoryGitHubOAuthServiceData) {}
 
 	public async verify(code: string): Promise<string> {
 		const token = this.data.tokens[code];

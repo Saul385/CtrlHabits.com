@@ -1,7 +1,7 @@
 import type { OAuthServiceInterface } from '$lib/server/oauth';
 import { OAuthServiceType } from '$lib/oauth';
 import { GitHubOAuthService } from '$lib/server/oauth/github/github_oauth_service';
-import { LocalFakeGitHubOAuthService } from '$lib/server/oauth/github/local_fake_github_oauth_service';
+import { FileSystemGitHubOAuthService } from '$lib/server/oauth/github/file_system_github_oauth_service';
 import { GITHUB_CLIENT } from '$lib/env';
 import { GITHUB_SECRET, GITHUB_OAUTH_SERVICE_DATA_PATH } from '$lib/server/env';
 
@@ -16,7 +16,7 @@ export function makeOAuthService(oauthServiceType: OAuthServiceType): OAuthServi
 		}
 
 		case OAuthServiceType.LOCAL_GITHUB: {
-			return new LocalFakeGitHubOAuthService(GITHUB_OAUTH_SERVICE_DATA_PATH);
+			return new FileSystemGitHubOAuthService(GITHUB_OAUTH_SERVICE_DATA_PATH);
 		}
 
 		case OAuthServiceType.GOOGLE: {

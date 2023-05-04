@@ -18,7 +18,7 @@ export function makeJWT(id: string, secret: string): string {
 export function verifyJWT(token: string, secret: string): string | null {
 	try {
 		const decoded = verify(token, secret);
-		const id = decoded.id;
+		const id = (decoded as { id: string }).id;
 		if (typeof id !== 'string') {
 			return null;
 		}
