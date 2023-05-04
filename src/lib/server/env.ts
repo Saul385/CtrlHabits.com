@@ -50,5 +50,5 @@ if (!CTRLHABITS_SERVICE_TYPE) {
 	throw new Error(`Invalid USER_SERVICE_TYPE: ${STRING_CTRLHABITS_SERVICE_TYPE}`);
 }
 
-export const LOCAL_GITHUB_OAUTH_SERVICE_PATH = './dev/fake_github_oauth_service.json';
-export const LOCAL_CTRLHABITS_SERVICE_PATH = './dev/fake_ctrlhabits_service.json';
+export const GITHUB_OAUTH_SERVICE_DATA_PATH = './dev/github_oauth_service_data.json';
+export const CTRLHABITS_SERVICE_DATA_PATH = './dev/ctrlhabits_service_data.json';

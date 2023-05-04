@@ -7,7 +7,7 @@ import {
 	FIRESTORE_CLIENT_EMAIL,
 	FIRESTORE_PRIVATE_KEY,
 	FIRESTORE_PROJECT_ID,
-	LOCAL_CTRLHABITS_SERVICE_PATH
+	CTRLHABITS_SERVICE_DATA_PATH
 } from '$lib/server/env';
 
 /**
@@ -19,7 +19,7 @@ export function makeCTRLHabitsService(
 	switch (ctrlhabitsServiceType) {
 		// Note: The following switch statement cases change according to enum UserServiceType.
 		case CTRLHabitsServiceType.LOCAL: {
-			return new FileSystemCTRLHabitsService(LOCAL_CTRLHABITS_SERVICE_PATH);
+			return new FileSystemCTRLHabitsService(CTRLHABITS_SERVICE_DATA_PATH);
 		}
 
 		case CTRLHabitsServiceType.FIRESTORE: {
