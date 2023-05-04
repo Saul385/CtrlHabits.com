@@ -148,4 +148,8 @@
 		box-shadow: 0px 0px 10px #008000;
 		transition: 0.5s;
 	}
+	.addFriend:hover{
+		height: 50px;
+		cursor:pointer;
+	}
 </style>

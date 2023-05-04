@@ -36,8 +36,16 @@
 			</ul>
 
 			<!--Habit Editing-->
-			<form class="editHabits">
+			<form class="editHabits" action = "/api/habits"> 
+				<!--Inputs are equ to JSON properties -->
 				<input type="text" class="habitEntry" placeholder="Enter habit here! " />
+				<input type="date" >
+				<select name="habit_id" id="habit_id">
+					<option value="000">habit 1 </option>
+					<option value="001">habit 2 </option>
+					<option value="002">habit 3 </option>
+
+				</select>
 				<button class="addHabit">Add</button>
 			</form>
 		</div>

@@ -4,18 +4,18 @@
 <div class="headerContainer">
 	<div class="header">
 		<!--Logo-->
-		<a href="/">
+		<a href="/home">
 			<img class="logo" src="/images/logo.png" alt="CtrlHabits.com logo" />
 		</a>
 
 		<!--Header Links-->
 		<nav class="headerLinks">
-			<a href="/">HOME</a>
-			<a href="/goals">CHECK-IN</a>
+			<a href="/home">HOME</a>
+			<a href="/checkIn">CHECK-IN</a>
 		</nav>
 
 		<!--Profile Image-->
-		<a href="/"
+		<a href="/profile"
 			><img
 				class="profileImage"
 				src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
