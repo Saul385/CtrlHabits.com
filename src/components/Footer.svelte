@@ -1,17 +1,17 @@
 <div class="footerContainer">
-	<div class="logo">
-		<a href="/"><img class="logo" src="/images/logo.png" alt="CtrlHabits.com logo" /> </a>
-		<span class = "statement">
-			Designed by CtrlHabits.com <br />
-			© 2023 CtrlHabits.com
-		</span>
-	</div>
+	<a class="logo" href="/"
+		><img class="logo" src="/images/logo.png" alt="CtrlHabits.com logo" />
+	</a>
+	<br />
+	<span class="statement">
+		Designed by CtrlHabits.com <br />
+		© 2023 CtrlHabits.com
+	</span>
 </div>
 
 <style>
 	.footerContainer {
-		display: flex;
-		justify-content: space-around;
+		text-align: center;
 	}
 	.logo {
 		width: min(15vw, 250px);
@@ -20,7 +20,5 @@
 		font-family: sans-serif;
 		font-weight: 300;
 		color: white;
-		text-align: center;
-
 	}
 </style>

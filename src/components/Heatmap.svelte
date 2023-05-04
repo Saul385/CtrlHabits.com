@@ -27,9 +27,6 @@
 	}
 </script>
 
-<div class="logo">
-	<a href="/"><img class="logo" src="/images/logo.png" alt="CtrlHabits.com logo" /> </a>
-</div>
 <div class="heatmapContainer">
 	<!--List of Goals-->
 	<ul class="goals">
@@ -83,12 +80,7 @@
 	</div>
 </div>
 
-<button class="callToAction">Start Here</button>
-
 <style>
-	.logo {
-		width: min(30vw, 150px);
-	}
 	.heatmapContainer {
 		height: 400px;
 		width: 1000px;
@@ -189,29 +181,7 @@
 		background-color: #e46161;
 		box-shadow: 0px 0px 10px #e46161;
 	}
-	.callToAction {
-		display: flex;
-		margin: auto;
-		margin-top: 60px;
-		height: 50px;
-		width: 200px;
-		border-radius: 15px;
-		font-family: Open Sans, sans-serif;
-		font-size: 25px;
-		color: white;
-		background-color: #00bbf0;
-		justify-content: center;
-		align-items: center;
-		border-style: none;
-		box-shadow: inset 0px 0px 20px white;
-		transition: 0.5s;
-	}
-	.callToAction:hover {
-		background-color: #00bbf0;
-		color: white;
-		border-style: none;
-		box-shadow: 0px 0px 20px white;
-	}
+
 	.day .tooltiptext {
 		visibility: hidden;
 		width: 300px;

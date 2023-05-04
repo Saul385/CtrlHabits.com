@@ -38,7 +38,7 @@
 			<!--Habit Editing-->
 			<form class="editHabits">
 				<input type="text" class="habitEntry" placeholder="Enter habit here! " />
-				<button class="addHabit">ADD</button>
+				<button class="addHabit">Add</button>
 			</form>
 		</div>
 	</div>
@@ -110,6 +110,7 @@
 		background-color: #008000;
 		border-radius: 15px;
 		border-style: none;
+		color:white;
 		width: 125px;
 		height: 40px;
 		box-shadow: 0px 0px 10px #008000;
