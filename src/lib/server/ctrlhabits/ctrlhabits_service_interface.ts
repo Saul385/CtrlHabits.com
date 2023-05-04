@@ -63,6 +63,13 @@ export interface CTRLHabitsServiceInterface {
 	//  * getHabitByID gets a habit from storage by ID.
 	//  */
 	// getHabitByID(r: GetHabitByIDRequest): Promise<GetHabitByIDResponse>;
+
+	/**
+	 * listHabits lists all habits in storage.
+	 *
+	 * TODO: Implement listHabits.
+	 */
+	listHabits(r: ListHabitsRequest): Promise<ListHabitsResponse>;
 }
 
 /**
@@ -209,11 +216,28 @@ export interface AddHabitRequest {
 	frequency: number;
 	start_date: string;
 	end_date: string;
-	user_id: ID;
 	private: boolean;
+	user_id: ID;
 }
 
 /**
  * AddHabitResponse is the response from adding a habit to storage.
  */
 export type AddHabitResponse = Habit;
+
+/**
+ * ListHabitsRequest is the request to list habits from storage
+ * for a given user.
+ */
+export interface ListHabitsRequest {
+	user_id: ID;
+	limit: number;
+	offset: number;
+}
+
+/**
+ * ListHabitsResponse is the response from listing habits from storage.
+ */
+export interface ListHabitsResponse {
+	habits: Habit[];
+}
