@@ -1,7 +1,7 @@
 <script>
-	import Heatmap from '../components/Heatmap.svelte';
-	import LandingBody from '../components/LandingBody.svelte';
-	import Footer from '../components/Footer.svelte';
+	import Heatmap from '../lib/components/Heatmap.svelte';
+	import LandingBody from '../lib/components/LandingBody.svelte';
+	import Footer from '../lib/components/Footer.svelte';
 </script>
 
 <body class="landingBody">

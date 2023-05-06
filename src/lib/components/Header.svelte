@@ -11,7 +11,6 @@
 		<!--Header Links-->
 		<nav class="headerLinks">
 			<a href="/home">HOME</a>
-			<a href="/checkIn">CHECK-IN</a>
 		</nav>
 
 		<!--Profile Image-->

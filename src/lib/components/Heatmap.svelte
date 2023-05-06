@@ -2,6 +2,7 @@
 	//Fill in logs at random
 	let days = [];
 	let startDate = new Date('January 1 2023');
+	let habits = ['Lose 15 pounds', 'Read 100 books', 'Prepare for technical interview'];
 
 	for (let i = 0; i < 365; i++) {
 		let logDate = new Date(startDate).setDate(i + 1);
@@ -28,18 +29,13 @@
 </script>
 
 <div class="heatmapContainer">
-	<!--List of Goals-->
-	<ul class="goals">
-		<li id="Goal1" class="goal1">Lose 15 pounds</li>
-		<li class="goal2">Read 100 books</li>
-		<li class="goal3">Prepare for technical interview</li>
-	</ul>
 	<!--Y axis -->
 	<ul class="y-axis">
 		<li>Mon</li>
 		<li>Wed</li>
 		<li>Fri</li>
 	</ul>
+
 	<div class="heatmap">
 		<!--X axis -->
 		<ul class="x-axis">
@@ -82,35 +78,9 @@
 
 <style>
 	.heatmapContainer {
-		height: 400px;
-		width: 1000px;
-		background-color: white;
-		border-radius: 15px;
 		display: flex;
 		margin: auto;
-		border-style: solid;
-		border-color: grey;
 		font-family: Open Sans, sans-serif;
-	}
-	.goals {
-		margin: auto;
-		margin-left: 0;
-	}
-	.goals li {
-		margin-bottom: 15px;
-		margin-left: 0;
-		display: flex;
-		list-style: none;
-		border-radius: 10px;
-		color: white;
-		font-size: 15px;
-		font-weight: bold;
-		padding: 10px;
-		transition: 0.5s;
-	}
-
-	.goals li:hover {
-		padding: 15px;
 	}
 
 	.grid {
@@ -169,19 +139,6 @@
 		margin-top: 55px;
 		margin-bottom: 30px;
 	}
-	.goal1 {
-		background-color: #f1b963;
-		box-shadow: 0px 0px 10px #f1b963;
-	}
-	.goal2 {
-		background-color: #bbea58;
-		box-shadow: 0px 0px 10px #cbf078;
-	}
-	.goal3 {
-		background-color: #e46161;
-		box-shadow: 0px 0px 10px #e46161;
-	}
-
 	.day .tooltiptext {
 		visibility: hidden;
 		width: 300px;

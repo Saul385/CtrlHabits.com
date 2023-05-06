@@ -1,9 +1,9 @@
 <script>
-	import Header from '../../components/Header.svelte';
-	import Habits from '../../components/Habits.svelte';
-	import ProfileInfo from '../../components/ProfileInfo.svelte';
-	import HabitHistory from '../../components/HabitHistory.svelte';
-	import Friends from '../../components/Friends.svelte';
+	import Header from '../../lib/components/Header.svelte';
+	import Habits from '../../lib/components/Habits.svelte';
+	import ProfileInfo from '../../lib/components/ProfileInfo.svelte';
+	import HabitHistory from '../../lib/components/HabitHistory.svelte';
+	import Friends from '../../lib/components/Friends.svelte';
 </script>
 
 
