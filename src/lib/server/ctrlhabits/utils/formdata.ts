@@ -1,13 +1,12 @@
 import * as z from 'zod';
 import type {
+	AddEntryRequest,
 	AddHabitRequest,
-	UpdateUserRequest,
-	UpdateHabitRequest,
-	User,
 	UpdateEntryRequest,
-	Habit,
-	AddEntryRequest
+	UpdateHabitRequest,
+	UpdateUserRequest
 } from '$lib/server/ctrlhabits';
+import type { ID } from '$lib/server/oauth';
 
 /**
  * Validated is a type that represents a request that has been validated.
@@ -52,10 +51,10 @@ export function makeRequestValidator<T>(schema: z.ZodType<T>) {
  * toUpdateUserRequest takes a FormData object and returns an UpdateUserRequest
  * object if the form data is valid. Otherwise, it returns a list of errors.
  */
-export function toUpdateUserRequest(formData: FormData, user: User): Validated<UpdateUserRequest> {
+export function toUpdateUserRequest(formData: FormData, userID: ID): Validated<UpdateUserRequest> {
 	const data = Object.fromEntries(formData.entries());
 	return validateUpdateUserRequest({
-		id: user.id,
+		id: userID,
 		tag: data.tag,
 		bio: data.bio,
 		avatar_url: data.avatar_url,
@@ -87,10 +86,10 @@ export const validateUpdateUserRequest =
  * toAddHabitRequest takes a FormData object and returns an AddHabitRequest
  * object if the form data is valid. Otherwise, it returns a list of errors.
  */
-export function toAddHabitRequest(formData: FormData, user: User): Validated<AddHabitRequest> {
+export function toAddHabitRequest(formData: FormData, userID: ID): Validated<AddHabitRequest> {
 	const data = Object.fromEntries(formData.entries());
 	return validateAddHabitRequest({
-		user_id: user.id,
+		user_id: userID,
 		name: data.name,
 		description: data.description,
 		frequency: data.frequency,
@@ -122,10 +121,13 @@ export const validateAddHabitRequest = makeRequestValidator<AddHabitRequest>(add
 /**
  * toUpdateHabitRequest takes a FormData object and returns an UpdateHabitRequest
  */
-export function toUpdateHabitRequest(formData: FormData): Validated<UpdateHabitRequest> {
+export function toUpdateHabitRequest(
+	formData: FormData,
+	habitID: ID
+): Validated<UpdateHabitRequest> {
 	const data = Object.fromEntries(formData.entries());
 	return validateUpdateHabitRequest({
-		id: data.id,
+		id: habitID,
 		name: data.name,
 		description: data.description,
 		frequency: data.frequency,
@@ -158,10 +160,11 @@ export const validateUpdateHabitRequest =
  * toAddEntryRequest takes a FormData object and returns an AddEntryRequest
  * object if the form data is valid. Otherwise, it returns a list of errors.
  */
-export function toAddEntryRequest(formData: FormData): Validated<AddEntryRequest> {
+export function toAddEntryRequest(formData: FormData, userID: ID): Validated<AddEntryRequest> {
 	const data = Object.fromEntries(formData.entries());
 	return validateAddEntryRequest({
 		habit_id: data.habit_id,
+		user_id: userID,
 		date: data.date,
 		value: data.value,
 		content: data.content
@@ -173,6 +176,7 @@ export function toAddEntryRequest(formData: FormData): Validated<AddEntryRequest
  */
 export const addEntryRequestSchema: z.ZodType<AddEntryRequest> = z.object({
 	habit_id: z.string(),
+	user_id: z.string(),
 	date: z.string().datetime(),
 	value: z.number(),
 	content: z.string().max(255)
@@ -188,10 +192,13 @@ export const validateAddEntryRequest = makeRequestValidator(addEntryRequestSchem
  * toUpdateEntryRequest takes a FormData object and returns an UpdateEntryRequest
  * object if the form data is valid. Otherwise, it returns a list of errors.
  */
-export function toUpdateEntryRequest(formData: FormData): Validated<UpdateEntryRequest> {
+export function toUpdateEntryRequest(
+	formData: FormData,
+	entryID: ID
+): Validated<UpdateEntryRequest> {
 	const data = Object.fromEntries(formData.entries());
 	return validateUpdateEntryRequest({
-		id: data.id,
+		id: entryID,
 		date: data.date,
 		value: data.value
 	});

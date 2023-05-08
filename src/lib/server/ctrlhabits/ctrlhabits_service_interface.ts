@@ -446,6 +446,11 @@ export interface Entry {
 	habit_id: ID;
 
 	/**
+	 * user_id is the ID of the user the entry belongs to.
+	 */
+	user_id: ID;
+
+	/**
 	 * date is the date of the entry.
 	 */
 	date: string;
@@ -476,6 +481,7 @@ export interface Entry {
  */
 export interface AddEntryRequest {
 	habit_id: ID;
+	user_id: ID;
 	date: string;
 	value: number;
 	content: string;

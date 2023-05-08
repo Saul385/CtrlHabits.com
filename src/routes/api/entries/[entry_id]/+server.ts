@@ -1,13 +1,13 @@
 import type { RequestEvent } from './$types';
 import { makeCTRLHabitsService } from '$lib/server/ctrlhabits/utils/make_ctrlhabits_service';
-import { toAddHabitRequest } from '$lib/server/ctrlhabits/utils/formdata';
+import { toUpdateEntryRequest } from '$lib/server/ctrlhabits/utils/formdata';
 import { CTRLHABITS_SERVICE_TYPE } from '$lib/server/env';
 
 /**
  * The server-side load function for:
- * `POST /api/habits`
+ * `PATCH /api/entries/[entry_id]`
  */
-export async function POST(event: RequestEvent): Promise<Response> {
+export async function PATCH(event: RequestEvent): Promise<Response> {
 	// Check if the user is logged in. If not, return an error.
 	if (event.locals.user === null) {
 		return new Response('Unauthorized', { status: 401 });
@@ -18,15 +18,26 @@ export async function POST(event: RequestEvent): Promise<Response> {
 		return new Response('Forbidden', { status: 403 });
 	}
 
-	// Get the habit data from the form data.
+	// Get the entry data from the form data.
 	const formData = await event.request.formData();
-	const { error, request: addHabitRequest } = toAddHabitRequest(formData, event.locals.user.id);
+	const { error, request: updateEntryRequest } = toUpdateEntryRequest(
+		formData,
+		event.params.entry_id
+	);
 	if (error !== null) {
 		return new Response(JSON.stringify({ error }), { status: 400 });
 	}
 
-	// Add the habit to the database.
+	// Check if the user is the owner of the entry. If not, return an error.
 	const ctrlhabitsService = makeCTRLHabitsService(CTRLHABITS_SERVICE_TYPE);
-	const habit = await ctrlhabitsService.addHabit(addHabitRequest);
-	return new Response(JSON.stringify(habit), { status: 200 });
+	const oldEntry = await ctrlhabitsService.getEntryByID({
+		id: updateEntryRequest.id
+	});
+	if (oldEntry.user_id !== event.locals.user.id) {
+		return new Response('Forbidden', { status: 403 });
+	}
+
+	// Update the entry in the database.
+	const entry = await ctrlhabitsService.updateEntry(updateEntryRequest);
+	return new Response(JSON.stringify(entry), { status: 200 });
 }
