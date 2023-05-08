@@ -1,12 +1,13 @@
 import { parseGitHubID, parseGoogleID } from '$lib/server/oauth/utils/parse_oauth_id';
-import type { AddUserRequest, User } from './ctrlhabits_service_interface';
+import type { ID } from '$lib/server/oauth';
+import type { AddUserRequest, UpdateUserRequest, User } from './ctrlhabits_service_interface';
 import { getCurrentTimestamp, makeUUID } from './utils/get_storage_options';
 
 /**
  * NewUserOptions is the data needed to create a new user in the database that was not provided by the request.
  */
 export interface NewUserOptions {
-	id: string;
+	id: ID;
 	tag: string | null;
 	timestamp: string;
 }
@@ -17,7 +18,6 @@ export interface NewUserOptions {
 export function makeNewUser(request: AddUserRequest, options: NewUserOptions): User {
 	const githubID = parseGitHubID(request.oauthData.type, request.oauthData);
 	const googleID = parseGoogleID(request.oauthData.type, request.oauthData);
-	console.log({ googleID, githubID, request, options });
 	return {
 		id: options.id,
 		tag: options.tag,
@@ -27,6 +27,26 @@ export function makeNewUser(request: AddUserRequest, options: NewUserOptions): U
 		google_id: googleID,
 		created_at: options.timestamp,
 		updated_at: options.timestamp
+	};
+}
+
+/**
+ * makeUpdatedUser creates a new user from the request and options.
+ */
+export function makeUpdatedUser(
+	user: User,
+	request: UpdateUserRequest,
+	{ timestamp }: NewUserOptions
+): User {
+	return {
+		id: user.id,
+		tag: request.tag ?? user.tag,
+		bio: request.bio ?? user.bio,
+		avatar_url: request.avatar_url ?? user.avatar_url,
+		github_id: request.github_id ?? user.github_id,
+		google_id: request.google_id ?? user.google_id,
+		created_at: user.created_at,
+		updated_at: timestamp
 	};
 }
 
