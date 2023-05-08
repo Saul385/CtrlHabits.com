@@ -26,8 +26,13 @@ export interface OAuthServiceInterface {
  */
 export interface OAuthData {
 	type: OAuthServiceType;
-	id: string;
+	id: ID;
 	tag: string;
 	bio: string;
 	avatar_url: string;
 }
+
+/**
+ * ID is a unique identifier. It is an alias for the string type.
+ */
+export type ID = string;

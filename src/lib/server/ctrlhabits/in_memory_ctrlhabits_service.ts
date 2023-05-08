@@ -1,9 +1,17 @@
+import type { ID } from '$lib/server/oauth';
 import type {
+	AddEntryRequest,
+	AddEntryResponse,
 	AddHabitRequest,
 	AddHabitResponse,
 	AddUserRequest,
 	AddUserResponse,
 	CTRLHabitsServiceInterface,
+	Entry,
+	GetEntryByIDRequest,
+	GetEntryByIDResponse,
+	GetHabitByIDRequest,
+	GetHabitByIDResponse,
 	GetUserByGitHubIDRequest,
 	GetUserByGitHubIDResponse,
 	GetUserByGoogleIDRequest,
@@ -13,36 +21,26 @@ import type {
 	GetUserByTagRequest,
 	GetUserByTagResponse,
 	Habit,
-	ID,
+	ListEntriesByHabitRequest,
+	ListEntriesByHabitResponse,
+	ListHabitsByUserRequest,
+	ListHabitsByUserResponse,
 	ListUsersRequest,
 	ListUsersResponse,
+	RemoveEntryRequest,
+	RemoveHabitRequest,
 	RemoveUserRequest,
+	UpdateEntryRequest,
+	UpdateEntryResponse,
+	UpdateHabitRequest,
+	UpdateHabitResponse,
 	UpdateUserRequest,
 	UpdateUserResponse,
 	User
 } from './ctrlhabits_service_interface';
-import { makeNewHabit } from './new_habit';
-import { ERROR_USER_NOT_FOUND, getNewUserOptions, makeNewUser } from './new_user';
-
-/**
- * InMemoryCTRLHabitsServiceData is the data used by InMemoryCTRLHabitsService.
- */
-export interface InMemoryCTRLHabitsServiceData {
-	users: {
-		[user_id: ID]: User;
-	};
-	habits: {
-		[habit_id: ID]: Habit;
-	};
-}
-
-/**
- * DEFAULT_IN_MEMORY_CTRLHABITS_SERVICE_DATA is the default data used by InMemoryCTRLHabitsService.
- */
-export const DEFAULT_IN_MEMORY_CTRLHABITS_SERVICE_DATA: InMemoryCTRLHabitsServiceData = {
-	users: {},
-	habits: {}
-};
+import { getNewEntryOptions, makeNewEntry, makeUpdatedEntry } from './new_entry';
+import { getNewHabitOptions, makeNewHabit, makeUpdatedHabit } from './new_habit';
+import { ERROR_USER_NOT_FOUND, getNewUserOptions, makeNewUser, makeUpdatedUser } from './new_user';
 
 /**
  * InMemoryCTRLHabitsService is a fake user service that stores users in memory.
@@ -53,6 +51,15 @@ export class InMemoryCTRLHabitsService implements CTRLHabitsServiceInterface {
 	public async addUser(r: AddUserRequest): Promise<AddUserResponse> {
 		const options = getNewUserOptions();
 		const newUser = makeNewUser(r, options);
+
+		// Check if the tag is already taken.
+		for (const userID in this.data.users) {
+			const user = this.data.users[userID];
+			if (user.tag === newUser.tag) {
+				return Promise.reject(new Error(`tag ${newUser.tag} is already taken`));
+			}
+		}
+
 		this.data.users[options.id] = newUser;
 		return Promise.resolve(newUser);
 	}
@@ -65,7 +72,7 @@ export class InMemoryCTRLHabitsService implements CTRLHabitsServiceInterface {
 
 		// Check if the tag is already taken.
 		if (r.tag) {
-			for (const userID in this.data) {
+			for (const userID in this.data.users) {
 				const user = this.data.users[userID];
 				if (user.tag === r.tag) {
 					return Promise.reject(new Error(`tag ${r.tag} is already taken`));
@@ -74,18 +81,9 @@ export class InMemoryCTRLHabitsService implements CTRLHabitsServiceInterface {
 		}
 
 		// Update the user.
-		const newUser: User = {
-			id: user.id,
-			tag: r.tag ?? user.tag,
-			bio: r.bio ?? user.bio,
-			avatar_url: r.avatar_url ?? user.avatar_url,
-			github_id: r.github_id ?? user.github_id,
-			google_id: r.google_id ?? user.google_id,
-			created_at: user.created_at,
-			updated_at: new Date().toISOString()
-		};
-		this.data.users[r.id] = newUser;
-		return Promise.resolve(newUser);
+		const updatedUser = makeUpdatedUser(user, r, getNewUserOptions());
+		this.data.users[r.id] = updatedUser;
+		return Promise.resolve(updatedUser);
 	}
 
 	public async getUserByID(r: GetUserByIDRequest): Promise<GetUserByIDResponse> {
@@ -126,11 +124,12 @@ export class InMemoryCTRLHabitsService implements CTRLHabitsServiceInterface {
 
 	public async listUsers(r: ListUsersRequest): Promise<ListUsersResponse> {
 		const allUsers = Object.values(this.data.users);
-		const total = allUsers.length;
-		const offset = r.offset ?? 0;
-		const limit = r.limit ?? allUsers.length;
-		const users = allUsers.slice(offset, offset + limit);
-		return Promise.resolve({ users, total });
+		const users = allUsers.slice(r.offset, r.offset + r.limit);
+		return Promise.resolve({
+			users,
+			offset: r.offset + users.length,
+			has_more: r.offset + users.length < allUsers.length
+		});
 	}
 
 	public async removeUser(r: RemoveUserRequest): Promise<void> {
@@ -148,4 +147,111 @@ export class InMemoryCTRLHabitsService implements CTRLHabitsServiceInterface {
 		this.data.habits[options.id] = newHabit;
 		return Promise.resolve(newHabit);
 	}
+
+	public async updateHabit(r: UpdateHabitRequest): Promise<UpdateHabitResponse> {
+		const habit = this.data.habits[r.id];
+		if (!habit) {
+			return Promise.reject(new Error(`habit ${r.id} not found`));
+		}
+
+		// Update the habit.
+		const updatedHabit = makeUpdatedHabit(habit, r, getNewHabitOptions());
+		this.data.habits[r.id] = updatedHabit;
+		return Promise.resolve(updatedHabit);
+	}
+
+	public async getHabitByID(r: GetHabitByIDRequest): Promise<GetHabitByIDResponse> {
+		const habit = this.data.habits[r.id];
+		if (habit) {
+			return Promise.resolve(habit);
+		}
+
+		return Promise.reject(new Error(`habit ${r.id} not found`));
+	}
+
+	public async listHabitsByUser(r: ListHabitsByUserRequest): Promise<ListHabitsByUserResponse> {
+		const allHabits = Object.values(this.data.habits);
+		const habits = allHabits.slice(r.offset, r.offset + r.limit);
+		return Promise.resolve({
+			habits,
+			offset: r.offset + habits.length,
+			has_more: r.offset + habits.length < allHabits.length
+		});
+	}
+
+	public async removeHabit(r: RemoveHabitRequest): Promise<void> {
+		if (this.data.habits[r.id]) {
+			delete this.data.habits[r.id];
+			return Promise.resolve();
+		}
+
+		return Promise.reject(new Error(`habit ${r.id} not found`));
+	}
+
+	public async addEntry(r: AddEntryRequest): Promise<AddEntryResponse> {
+		const options = getNewUserOptions();
+		const newEntry = makeNewEntry(r, options);
+		this.data.entries[options.id] = newEntry;
+		return Promise.resolve(newEntry);
+	}
+
+	public async updateEntry(r: UpdateEntryRequest): Promise<UpdateEntryResponse> {
+		const entry = this.data.entries[r.id];
+		if (!entry) {
+			return Promise.reject(new Error(`entry ${r.id} not found`));
+		}
+
+		// Update the entry.
+		const updatedEntry = makeUpdatedEntry(entry, r, getNewEntryOptions());
+		this.data.entries[r.id] = updatedEntry;
+		return Promise.resolve(updatedEntry);
+	}
+
+	public async getEntryByID(r: GetEntryByIDRequest): Promise<GetEntryByIDResponse> {
+		const entry = this.data.entries[r.id];
+		if (entry) {
+			return Promise.resolve(entry);
+		}
+
+		return Promise.reject(new Error(`entry ${r.id} not found`));
+	}
+
+	public async listEntriesByHabit(
+		r: ListEntriesByHabitRequest
+	): Promise<ListEntriesByHabitResponse> {
+		const allEntries = Object.values(this.data.entries);
+		const entries = allEntries.slice(r.offset, r.offset + r.limit);
+		return Promise.resolve({
+			entries,
+			offset: r.offset + entries.length,
+			has_more: r.offset + entries.length < allEntries.length
+		});
+	}
+
+	public async removeEntry(r: RemoveEntryRequest): Promise<void> {
+		if (this.data.entries[r.id]) {
+			delete this.data.entries[r.id];
+			return Promise.resolve();
+		}
+
+		return Promise.reject(new Error(`entry ${r.id} not found`));
+	}
+}
+
+/**
+ * DEFAULT_IN_MEMORY_CTRLHABITS_SERVICE_DATA is the default data used by InMemoryCTRLHabitsService.
+ */
+export const DEFAULT_IN_MEMORY_CTRLHABITS_SERVICE_DATA: InMemoryCTRLHabitsServiceData = {
+	users: {},
+	habits: {},
+	entries: {}
+};
+
+/**
+ * InMemoryCTRLHabitsServiceData is the data used by InMemoryCTRLHabitsService.
+ */
+export interface InMemoryCTRLHabitsServiceData {
+	users: { [user_id: ID]: User };
+	habits: { [habit_id: ID]: Habit };
+	entries: { [entry_id: ID]: Entry };
 }

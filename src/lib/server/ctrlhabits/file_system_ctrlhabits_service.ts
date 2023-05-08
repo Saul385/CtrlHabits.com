@@ -1,7 +1,16 @@
-import { writeFileSync, readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import type {
+	AddEntryRequest,
+	AddEntryResponse,
+	AddHabitRequest,
+	AddHabitResponse,
 	AddUserRequest,
 	AddUserResponse,
+	CTRLHabitsServiceInterface,
+	GetEntryByIDRequest,
+	GetEntryByIDResponse,
+	GetHabitByIDRequest,
+	GetHabitByIDResponse,
 	GetUserByGitHubIDRequest,
 	GetUserByGitHubIDResponse,
 	GetUserByGoogleIDRequest,
@@ -10,14 +19,21 @@ import type {
 	GetUserByIDResponse,
 	GetUserByTagRequest,
 	GetUserByTagResponse,
+	ListEntriesByHabitRequest,
+	ListEntriesByHabitResponse,
+	ListHabitsByUserRequest,
+	ListHabitsByUserResponse,
 	ListUsersRequest,
 	ListUsersResponse,
+	RemoveEntryRequest,
+	RemoveHabitRequest,
 	RemoveUserRequest,
+	UpdateEntryRequest,
+	UpdateEntryResponse,
+	UpdateHabitRequest,
+	UpdateHabitResponse,
 	UpdateUserRequest,
-	UpdateUserResponse,
-	CTRLHabitsServiceInterface,
-	AddHabitRequest,
-	AddHabitResponse
+	UpdateUserResponse
 } from './ctrlhabits_service_interface';
 import type { InMemoryCTRLHabitsServiceData } from './in_memory_ctrlhabits_service';
 import { DEFAULT_IN_MEMORY_CTRLHABITS_SERVICE_DATA } from './in_memory_ctrlhabits_service';
@@ -78,6 +94,52 @@ export class FileSystemCTRLHabitsService implements CTRLHabitsServiceInterface {
 		const habit = await this.inMemoryCTRLHabitsService.addHabit(r);
 		await this.save();
 		return habit;
+	}
+
+	public async updateHabit(r: UpdateHabitRequest): Promise<UpdateHabitResponse> {
+		const habit = await this.inMemoryCTRLHabitsService.updateHabit(r);
+		await this.save();
+		return habit;
+	}
+
+	public async getHabitByID(r: GetHabitByIDRequest): Promise<GetHabitByIDResponse> {
+		return await this.inMemoryCTRLHabitsService.getHabitByID(r);
+	}
+
+	public async listHabitsByUser(r: ListHabitsByUserRequest): Promise<ListHabitsByUserResponse> {
+		return await this.inMemoryCTRLHabitsService.listHabitsByUser(r);
+	}
+
+	public async removeHabit(r: RemoveHabitRequest): Promise<void> {
+		await this.inMemoryCTRLHabitsService.removeHabit(r);
+		await this.save();
+	}
+
+	public async addEntry(r: AddEntryRequest): Promise<AddEntryResponse> {
+		const entry = await this.inMemoryCTRLHabitsService.addEntry(r);
+		await this.save();
+		return entry;
+	}
+
+	public async updateEntry(r: UpdateEntryRequest): Promise<UpdateEntryResponse> {
+		const entry = await this.inMemoryCTRLHabitsService.updateEntry(r);
+		await this.save();
+		return entry;
+	}
+
+	public async getEntryByID(r: GetEntryByIDRequest): Promise<GetEntryByIDResponse> {
+		return await this.inMemoryCTRLHabitsService.getEntryByID(r);
+	}
+
+	public async listEntriesByHabit(
+		r: ListEntriesByHabitRequest
+	): Promise<ListEntriesByHabitResponse> {
+		return await this.inMemoryCTRLHabitsService.listEntriesByHabit(r);
+	}
+
+	public async removeEntry(r: RemoveEntryRequest): Promise<void> {
+		await this.inMemoryCTRLHabitsService.removeEntry(r);
+		await this.save();
 	}
 
 	/**
