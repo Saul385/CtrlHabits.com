@@ -3,7 +3,10 @@ import type {
 	AddHabitRequest,
 	UpdateUserRequest,
 	UpdateHabitRequest,
-	User
+	User,
+	UpdateEntryRequest,
+	Habit,
+	AddEntryRequest
 } from '$lib/server/ctrlhabits';
 
 /**
@@ -75,7 +78,7 @@ const updateUserRequestSchema: z.ZodType<UpdateUserRequest> = z.object({
 
 /**
  * validateUpdateUserRequest is a function that takes a FormData object and returns a
- * Validated<UpdateUserRequest> object.
+ * validated UpdateUserRequest object.
  */
 export const validateUpdateUserRequest =
 	makeRequestValidator<UpdateUserRequest>(updateUserRequestSchema);
@@ -112,7 +115,7 @@ const addHabitRequestSchema: z.ZodType<AddHabitRequest> = z.object({
 
 /**
  * validateAddHabitRequest is a function that takes a FormData object and returns a
- * Validated<AddHabitRequest> object.
+ * validated AddHabitRequest object.
  */
 export const validateAddHabitRequest = makeRequestValidator<AddHabitRequest>(addHabitRequestSchema);
 
@@ -150,3 +153,62 @@ export const updateHabitRequestSchema: z.ZodType<UpdateHabitRequest> = z.object(
  */
 export const validateUpdateHabitRequest =
 	makeRequestValidator<UpdateHabitRequest>(updateHabitRequestSchema);
+
+/**
+ * toAddEntryRequest takes a FormData object and returns an AddEntryRequest
+ * object if the form data is valid. Otherwise, it returns a list of errors.
+ */
+export function toAddEntryRequest(formData: FormData): Validated<AddEntryRequest> {
+	const data = Object.fromEntries(formData.entries());
+	return validateAddEntryRequest({
+		habit_id: data.habit_id,
+		date: data.date,
+		value: data.value,
+		content: data.content
+	});
+}
+
+/**
+ * addEntryRequestSchema is a Zod schema for AddEntryRequest.
+ */
+export const addEntryRequestSchema: z.ZodType<AddEntryRequest> = z.object({
+	habit_id: z.string(),
+	date: z.string().datetime(),
+	value: z.number(),
+	content: z.string().max(255)
+});
+
+/**
+ * validateAddEntryRequest is a function that takes a FormData object and returns a
+ * validated AddEntryRequest object.
+ */
+export const validateAddEntryRequest = makeRequestValidator(addEntryRequestSchema);
+
+/**
+ * toUpdateEntryRequest takes a FormData object and returns an UpdateEntryRequest
+ * object if the form data is valid. Otherwise, it returns a list of errors.
+ */
+export function toUpdateEntryRequest(formData: FormData): Validated<UpdateEntryRequest> {
+	const data = Object.fromEntries(formData.entries());
+	return validateUpdateEntryRequest({
+		id: data.id,
+		date: data.date,
+		value: data.value
+	});
+}
+
+/**
+ * updateEntryRequestSchema is a Zod schema for UpdateEntryRequest.
+ */
+export const updateEntryRequestSchema: z.ZodType<UpdateEntryRequest> = z.object({
+	id: z.string(),
+	date: z.string().datetime().optional(),
+	content: z.string().optional(),
+	value: z.number().optional()
+});
+
+/**
+ * validateUpdateEntryRequest is a function that takes a FormData object and returns a
+ * validated UpdateEntryRequest object.
+ */
+export const validateUpdateEntryRequest = makeRequestValidator(updateEntryRequestSchema);
