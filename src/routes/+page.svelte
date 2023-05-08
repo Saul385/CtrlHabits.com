@@ -1,45 +1,49 @@
-<!--ToDo
-    Background
-		background doubling
--->
 <script>
-	import Navbar from './navbarLanding.svelte';
-	import OAuthMenu from '$lib/components/oauth_menu.svelte';
+	import Heatmap from '../lib/components/Heatmap.svelte';
+	import LandingBody from '../lib/components/LandingBody.svelte';
+	import Footer from '../lib/components/Footer.svelte';
 </script>
 
-<body>
-	<Navbar />
-
-	<OAuthMenu dev={true} />
-
-	<div class="heatmap">
-		<h1>Temporary Heatmap</h1>
-		<img src="https://cdn.ourcodeworld.com/public-media/gallery/gallery-59aa72259592f.png" alt="" />
+<body class="landingBody">
+	<div class="logo">
+		<a href="/"><img class="logo" src="/images/logo.png" alt="CtrlHabits.com logo" /> </a>
 	</div>
+	<Heatmap />
+	<button class="callToAction">Start Here</button>
+	<LandingBody />
+	<Footer />
 </body>
 
 <style>
 	body {
-		background-image: url(https://img.freepik.com/free-vector/gradient-liquid-abstract-background_23-2148914626.jpg?w=996&t=st=1677614748~exp=1677615348~hmac=b85e5627e48713d263e834ab6c2b27ae7342d04d0c5a5d2ab5c4ff0e5b6ef2b7);
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-color: black;
+		height: 100%;
+		width: 100%;
+		background-color: #00bbf0;
 	}
-	.heatmap {
-		margin-top: 10%;
+	.logo {
+		width: min(30vw, 150px);
 	}
-	.heatmap h1 {
-		text-align: center;
-		margin: auto;
-		color: white;
-		text-decoration: none;
-		text-shadow: 1px 1px 1px black;
-		font-family: arial;
-		font-size: 1.7vw;
-		font-weight: normal;
-	}
-	.heatmap img {
+	.callToAction {
 		display: flex;
 		margin: auto;
+		margin-top: 60px;
+		height: 50px;
+		width: 200px;
+		border-radius: 15px;
+		font-family: Open Sans, sans-serif;
+		font-size: 25px;
+		color: white;
+		background-color: #00bbf0;
+		justify-content: center;
+		align-items: center;
+		border-style: none;
+		box-shadow: inset 0px 0px 20px white;
+		transition: 0.5s;
+	}
+	.callToAction:hover {
+		background-color: #00bbf0;
+		color: white;
+		border-style: none;
+		box-shadow: 0px 0px 20px white;
 	}
 </style>

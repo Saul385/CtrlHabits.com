@@ -6,14 +6,17 @@
 
 -->
 <script>
+	/*
 	import { openModal } from 'svelte-modals';
 	import Modal from '$lib/components/modal.svelte';
 
 	function handleClick() {
 		openModal(Modal, {});
 	}
+	*/
 </script>
 
+<!--
 <div class="headerContainer">
 	<div class="header">
 		<a href="/"
@@ -25,13 +28,12 @@
 		</a>
 
 		<nav class="headerLinks">
-			<!-- svelte-ignore a11y-invalid-attribute -->
 			<a href="" on:click={handleClick}>Login | Sign Up</a>
 			<a href="/about">About</a>
 		</nav>
 	</div>
 </div>
-
+-->
 <style>
 	.headerContainer {
 		width: 100%;
