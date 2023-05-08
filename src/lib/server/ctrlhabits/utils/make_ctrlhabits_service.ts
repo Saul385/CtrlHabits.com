@@ -4,18 +4,21 @@ import { FileSystemCTRLHabitsService } from '$lib/server/ctrlhabits/file_system_
 import { CTRLHABITS_SERVICE_DATA_PATH } from '$lib/server/env';
 
 /**
- * makeUserService returns the relevant user service.
+ * makeCTRLHabitsService returns the relevant user service.
  */
 export function makeCTRLHabitsService(
 	ctrlhabitsServiceType: CTRLHabitsServiceType
 ): CTRLHabitsServiceInterface {
 	switch (ctrlhabitsServiceType) {
-		// Note: The following switch statement cases change according to enum UserServiceType.
 		case CTRLHabitsServiceType.LOCAL: {
 			return new FileSystemCTRLHabitsService(CTRLHABITS_SERVICE_DATA_PATH);
 		}
 
 		case CTRLHabitsServiceType.FIRESTORE: {
+			throw new Error('Unimplemented');
+		}
+
+		case CTRLHabitsServiceType.POCKETBASE: {
 			throw new Error('Unimplemented');
 		}
 

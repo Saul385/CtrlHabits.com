@@ -18,7 +18,7 @@
 			><img
 				class="profileImage"
 				src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
-				alt="Profile image"
+				alt="Profile pic"
 			/>
 		</a>
 	</div>
@@ -60,6 +60,5 @@
 		width: min(25vw, 100px);
 		border-radius: 30px;
 		margin-top: 30px;
-
 	}
 </style>

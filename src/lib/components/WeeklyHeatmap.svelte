@@ -1,6 +1,4 @@
 <script>
-	import { blank_object } from 'svelte/internal';
-
 	export let habits = [1, 2, 3];
 	let startDate = new Date('January 1 2023');
 	let color = 'grey';

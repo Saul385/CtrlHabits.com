@@ -18,7 +18,7 @@
 		</div>
 		<AddEntryForm />
 	</div>
-	<EntryList/>
+	<EntryList />
 </body>
 
 <style>

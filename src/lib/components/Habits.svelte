@@ -3,7 +3,7 @@
 	let habits = ['Habit 1', 'Habit 2', 'Habit 3'];
 
 	//Remove habit
-	function removeButton() {}
+	// function removeButton() {}
 </script>
 
 <body class="homeBody">

@@ -14,7 +14,6 @@
 		</select>
 	</div>
 
-
 	<!--Progress Description-->
 	<h3 class="description">Describe Habit Progress</h3>
 	<textarea class="entryDescription" placeholder="Played 6 games of chess" />
@@ -36,26 +35,25 @@
 		border-color: #00bbf0;
 		border-radius: 15px;
 		box-shadow: 0 0 10px #00bbf0;
-		width:fit-content;
-		margin:auto;
-		padding: 10px;	
-		transition: .5s;
+		width: fit-content;
+		margin: auto;
+		padding: 10px;
+		transition: 0.5s;
 	}
-	.calendarContainer:hover{
+	.calendarContainer:hover {
 		padding: 15px;
 	}
-	.calendar{
+	.calendar {
 		border-style: solid;
 		border-width: 1px;
 		border-color: #00bbf0;
 	}
-	.calendar:hover{
+	.calendar:hover {
 		cursor: pointer;
 	}
 	.habitSelector {
 		border-style: solid;
 		border-color: #00bbf0;
-
 	}
 	.description {
 		width: fit-content;
@@ -78,9 +76,9 @@
 		padding: 5px;
 		margin-bottom: 10px;
 		color: grey;
-		transition: .5s;
+		transition: 0.5s;
 	}
-	.entryDescription:hover{
+	.entryDescription:hover {
 		box-shadow: 0 0 20px #00bbf0;
 		padding: 10px;
 	}
@@ -104,7 +102,7 @@
 	.submitHabit {
 		background-color: #00bbf0;
 	}
-	.habitSelector:hover{
+	.habitSelector:hover {
 		cursor: pointer;
 	}
 </style>

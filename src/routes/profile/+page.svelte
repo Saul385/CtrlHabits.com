@@ -6,7 +6,6 @@
 	import Friends from '../../lib/components/Friends.svelte';
 </script>
 
-
 <Header />
 <ProfileInfo />
 <Habits />

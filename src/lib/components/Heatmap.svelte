@@ -2,7 +2,7 @@
 	//Fill in logs at random
 	let days = [];
 	let startDate = new Date('January 1 2023');
-	let habits = ['Lose 15 pounds', 'Read 100 books', 'Prepare for technical interview'];
+	// let habits = ['Lose 15 pounds', 'Read 100 books', 'Prepare for technical interview'];
 
 	for (let i = 0; i < 365; i++) {
 		let logDate = new Date(startDate).setDate(i + 1);
