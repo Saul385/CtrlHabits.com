@@ -3,7 +3,7 @@ import { OAuthServiceType } from '$lib/oauth';
 import { GitHubOAuthService } from '$lib/server/oauth/github/github_oauth_service';
 import { FileSystemGitHubOAuthService } from '$lib/server/oauth/github/file_system_github_oauth_service';
 import { GITHUB_CLIENT } from '$lib/env';
-import { GITHUB_SECRET, GITHUB_OAUTH_SERVICE_DATA_PATH } from '$lib/server/env';
+import { GITHUB_OAUTH_SERVICE_DATA_PATH, GITHUB_SECRET } from '$lib/server/env';
 
 /**
  * makeOAuthService creates an OAuth service for the given OAuth provider.
