@@ -3,6 +3,9 @@ import type { OAuthData, OAuthServiceInterface } from '../oauth_service_interfac
 
 /**
  * GitHubOAuthService is the service for GitHub OAuth.
+ *
+ * See:
+ * https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#web-application-flow
  */
 export class GitHubOAuthService implements OAuthServiceInterface {
 	constructor(private readonly clientID: string, private readonly clientSecret: string) {}
@@ -22,6 +25,10 @@ export class GitHubOAuthService implements OAuthServiceInterface {
 		});
 
 		const data = await response.json();
+		if (typeof data.access_token !== 'string') {
+			throw new Error(`Failed to get access token. Status: ${response.status}`);
+		}
+
 		return data.access_token;
 	}
 
