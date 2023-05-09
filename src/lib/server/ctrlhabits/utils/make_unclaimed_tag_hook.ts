@@ -7,6 +7,20 @@ import type { Handle } from '@sveltejs/kit';
  * makeUnclaimedTagHook applies to all paths except those in the ignoreList.
  *
  * makeUnclaimedTagHook applies to only the GET method.
+ *
+ * TODO(EthanThatOneKid): Return unauthorized status for non-GET methods, e.g.
+ *
+ * ```ts
+ * // Check if the user is logged in. If not, return an error.
+ * if (event.locals.user === null) {
+ *   return new Response('Unauthorized', { status: 401 });
+ * }
+ *
+ * // Check if the user already has a tag. If so, return an error.
+ * if (event.locals.user.tag !== null) {
+ *   return new Response('Forbidden', { status: 403 });
+ * }
+ * ```
  */
 export function makeUnclaimedTagHook(claimPathname: string, ignoreList: string[]): Handle {
 	return async ({ event, resolve }) => {

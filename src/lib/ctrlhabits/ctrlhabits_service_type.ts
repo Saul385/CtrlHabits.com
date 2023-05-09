@@ -3,7 +3,8 @@
  */
 export enum CTRLHabitsServiceType {
 	LOCAL = 'local',
-	FIRESTORE = 'firestore'
+	FIRESTORE = 'firestore',
+	POCKETBASE = 'pocketbase'
 }
 
 /**
@@ -19,6 +20,10 @@ export function parseCTRLHabitsServiceType(
 
 		case CTRLHabitsServiceType.FIRESTORE: {
 			return CTRLHabitsServiceType.FIRESTORE;
+		}
+
+		case CTRLHabitsServiceType.POCKETBASE: {
+			return CTRLHabitsServiceType.POCKETBASE;
 		}
 
 		default: {
