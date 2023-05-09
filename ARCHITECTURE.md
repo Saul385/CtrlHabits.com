@@ -52,19 +52,38 @@ Configuration files are files that are rarely changed, as they determine the beh
 
 ### `package.json`
 
+[This JSON file](package.json) describes information about the project and stores the information for all of the dependencies (along with their versions) used in the project.
+This includes `"dependencies"` that are used inside our program and `"devDependencies"` that are used for development outside of the inner-workings of our program.
+
 #### `package-lock.json`
+
+This file is not meant to be modified by humans, but instead left to be managed by the project's package manager, NPM.
+Even though it is not affected by developers, the lock file is still important and so it is [_advised_](https://blog.logrocket.com/why-you-should-use-package-lock-json/) to leave it out of the `.gitignore` file.
 
 ### `svelte.config.js`
 
+[This file](svelte.config.js) is a JavaScript file that configures the Svelte compiler. It is used to configure the SvelteKit framework.
+
+> INFO: <https://kit.svelte.dev/docs/configuration>
+
 ### `tsconfig.json`
 
+The [TSConfig file](tsconfig.json) is used by the TypeScript compiler to specify any compilation parameters and settings.
+In the case of this project, our TSConfig is mostly extended from [`@tsconfig/svelte`](https://www.npmjs.com/package/@tsconfig/svelte), an opinionated base TSConfig for working with Svelte.
+
 ### `vite.config.ts`
+
+The [Vite config file](vite.config.ts) is used by the Vite bundler to specify any bundling parameters and settings.
 
 ## Static files
 
 Static files are assets that are statically served by the application. Static files are located in the `static` directory.
 
-<!-- TODO(EthanThatOneKid): We currently have no rhyme or reason to the structure of our static files. -->
+<!-- TODO(EthanThatOneKid): We currently have no rhyme or reason to the structure of our static files. Add global.css and do the favicon.ico dance. -->
+
+### `static/global.css`
+
+[This CSS file](static/global.css) contains global styles and CSS variables that are applied to the entire application. It is used to define styles that are not specific to any particular component.
 
 ## Environment variables
 
@@ -76,7 +95,16 @@ When deploying to production, you can define environment variables using your ho
 
 ### Page endpoints
 
-Minimum viable pages. This PR includes a set of frontend pages containing the logic needed for a minimum viable user experience.
+The website's pages are located under [`/src/routes`](src/routes).
+In that directory, each file with a prefix <kbd>+</kbd> represents an endpoint of the website.
+
+| Relative file path                            | Production URL                                                         |
+| --------------------------------------------- | ---------------------------------------------------------------------- |
+| `/src/routes/+page.svelte`                    | `https://ctrlhabits.com/`                                              |
+| `/src/routes/habits/+page.svelte`             | `https://ctrlhabits.com/habits/`                                       |
+| `/src/routes/entries/[entry_id]/+page.svelte` | `https://ctrlhabits.com/entries/55bb790f-c944-4d3d-a1e7-1d613e8e8106/` |
+
+> INFO: <https://kit.svelte.dev/docs/routing>
 
 ### API endpoints
 
@@ -85,6 +113,8 @@ Our backend API is nearly complete. This PR includes a set of API endpoints util
 #### `GET /api/auth/[oauth_service_type]`
 
 Our `GET /api/auth/[oauth_service_type]` endpoint is the endpoint that users redirect to after successfully authenticating with an official OAuth provider. For example, our GitHub OAuth application will be [configured](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#web-application-flow) to redirect users to `https://ctrlhabits.com/api/auth/github`.
+
+#### `GET /api/auth/[oauth_service_type]`
 
 The `oauth_service_type` param is defined in `src/params/oauth_service_type.ts`.
 
@@ -98,4 +128,4 @@ Our backend uses an instance of `OAuthServiceInterface` to authenticate new and 
 
 Our backend uses an instance of `CTRLHabitsServiceInterface` to manage the platform's entire storage system. This allows us to select `CTRLHabitsServiceInterface` instances depending on the environment variables. The `CTRLHABITS_SERVICE_TYPE` environment variable determines which `CTRLHabitsServiceInterface` instance to use when the server responds to requests.
 
-<!-- TODO(EthanThatOneKid): Complete ARCHITECTURE.md. -->
+<!-- TODO(EthanThatOneKid): Complete ARCHITECTURE.md. Reference: https://acmcsuf.com/code/edit/main/ARCHITECTURE.md. -->
