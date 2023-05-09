@@ -16,6 +16,7 @@ export interface NewEntryOptions {
 export function makeNewEntry(request: AddEntryRequest, options: NewEntryOptions): Entry {
 	return {
 		id: options.id,
+		user_id: request.user_id,
 		date: request.date,
 		habit_id: request.habit_id,
 		value: request.value,
@@ -35,6 +36,7 @@ export function makeUpdatedEntry(
 ): Entry {
 	return {
 		id: entry.id,
+		user_id: entry.user_id,
 		habit_id: entry.habit_id,
 		date: request.date ?? entry.date,
 		value: request.value ?? entry.value,

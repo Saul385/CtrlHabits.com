@@ -1,9 +1,11 @@
 <script>
-	//Habit storage
+	// Habit storage
 	let habits = ['Habit 1', 'Habit 2', 'Habit 3'];
 
-	//Remove habit
-	// function removeButton() {}
+	// Remove habit
+	function removeButton() {
+		console.log("noop")	
+	}
 </script>
 
 <body class="homeBody">
