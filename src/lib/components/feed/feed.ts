@@ -1,4 +1,4 @@
-import type { ID } from '$lib/server/oauth';
+
 
 /**
  * FeedData is the data structure for the feed component.
@@ -15,9 +15,9 @@ export interface FeedData {
  */
 export interface FeedEntry {
 	/**
-	 * id is the ID of the entry.
+	 * string is the ID of the entry.
 	 */
-	id: ID;
+	id: string;
 
 	/**
 	 * html_url is the URL of the entry.
@@ -27,7 +27,7 @@ export interface FeedEntry {
 	/**
 	 * habit_id is the ID of the habit the entry belongs to.
 	 */
-	habit_id: ID;
+	habit_id: string;
 
 	/**
 	 * html_habit_url is the URL of the habit the entry belongs to.
@@ -37,7 +37,7 @@ export interface FeedEntry {
 	/**
 	 * user_id is the ID of the user the entry belongs to.
 	 */
-	user_id: ID;
+	user_id: string;
 
 	/**
 	 * html_user_url is the URL of the user the entry belongs to.

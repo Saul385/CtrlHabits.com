@@ -8,7 +8,10 @@
 	<div class="logo">
 		<a href="/"><img class="logo" src="/images/logo.png" alt="CtrlHabits.com logo" /> </a>
 	</div>
-	<Heatmap />
+	<div class="heatmapContainer">
+		<Heatmap />
+	</div>
+	
 	<button class="callToAction">Start Here</button>
 	<LandingBody />
 	<Footer />
@@ -19,6 +22,9 @@
 		height: 100%;
 		width: 100%;
 		background-color: #00bbf0;
+	}
+	.heatmapContainer{
+		height: fit
 	}
 	.logo {
 		width: min(30vw, 150px);
