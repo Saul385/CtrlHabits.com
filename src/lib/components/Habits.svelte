@@ -4,7 +4,7 @@
 
 	// Remove habit
 	function removeButton() {
-		console.log("noop")	
+		console.log('noop');
 	}
 </script>
 
