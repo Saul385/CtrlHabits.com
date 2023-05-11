@@ -4,7 +4,7 @@
 	export let data: UpdateUserFormData;
 </script>
 
-<form method="PATCH" action="/api/habits/{data.id}">
+<form method="PATCH" action="/api/user/{data.id}">
 	<label for="name">ID</label>
 	<input type="text" id="id" name="id" value={data.id} readonly />
 
@@ -16,6 +16,8 @@
 
 	<label for="avatar_url">Avatar URL</label>
 	<input type="text" id="avatar_url" name="avatar_url" value={data.avatar_url} />
+
+	<button type="submit">Update</button>
 </form>
 
 <style>

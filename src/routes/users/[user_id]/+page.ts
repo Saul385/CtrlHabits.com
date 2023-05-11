@@ -6,7 +6,7 @@ import { makeCTRLHabitsAPI } from '$lib/ctrlhabits/api/utils/make_ctrlhabits_api
  * `GET /users/[user_id]`
  */
 export async function load(event: PageLoadEvent) {
-	const api = makeCTRLHabitsAPI(event.fetch);
+	const api = makeCTRLHabitsAPI(event.fetch.bind(event));
 	const [profile, habits] = await Promise.all([
 		api.getUsersUserID({
 			id: event.params.user_id

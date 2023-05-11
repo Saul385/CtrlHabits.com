@@ -1,8 +1,11 @@
 <script>
 	import Heatmap from './heatmap/heatmap.svelte';
+	import OauthMenu from './oauth_menu.svelte';
 </script>
 
 <section class="landingBody">
+	<OauthMenu dev={true} />
+
 	<div class="heatmapContainer">
 		<Heatmap />
 	</div>
