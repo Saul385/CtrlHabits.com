@@ -1,5 +1,9 @@
 import type { ID } from '$lib/server/oauth';
-import type { AddEntryRequest, Entry, UpdateEntryRequest } from './ctrlhabits_service_interface';
+import type {
+	AddEntryRequest,
+	Entry,
+	UpdateEntryRequest
+} from '../../ctrlhabits/ctrlhabits_service_interface';
 import { getCurrentTimestamp, makeUUID } from './utils/get_storage_options';
 
 /**

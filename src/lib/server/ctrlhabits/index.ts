@@ -1,1 +1,1 @@
-export * from './ctrlhabits_service_interface';
+export * from '../../ctrlhabits/ctrlhabits_service_interface';

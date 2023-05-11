@@ -1,6 +1,10 @@
 import { parseGitHubID, parseGoogleID } from '$lib/server/oauth/utils/parse_oauth_id';
 import type { ID } from '$lib/server/oauth';
-import type { AddUserRequest, UpdateUserRequest, User } from './ctrlhabits_service_interface';
+import type {
+	AddUserRequest,
+	UpdateUserRequest,
+	User
+} from '../../ctrlhabits/ctrlhabits_service_interface';
 import { getCurrentTimestamp, makeUUID } from './utils/get_storage_options';
 
 /**

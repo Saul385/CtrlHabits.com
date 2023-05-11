@@ -5,7 +5,7 @@ import { CTRLHABITS_SERVICE_TYPE } from '$lib/server/env';
 
 /**
  * The server-side load function for:
- * `POST /api/entries`
+ * `POST /api/habits/[habit_id]/entries`
  */
 export async function POST(event: RequestEvent): Promise<Response> {
 	// Check if the user is logged in. If not, return an error.

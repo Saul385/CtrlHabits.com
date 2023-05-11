@@ -348,9 +348,9 @@ For example, our GitHub OAuth application will be
 [configured](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps#web-application-flow)
 to redirect users to `https://ctrlhabits.com/api/auth/github`.
 
-### `GET /api/claim`
+### `POST /api/claim`
 
-Our `GET /api/claim` endpoint is the endpoint that users redirect to after
+Our `POST /api/claim` endpoint is the endpoint that users redirect to after
 successfully authenticating with an unofficial OAuth provider. This endpoint is
 used to associate a tag with a user's account.
 

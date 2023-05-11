@@ -34,7 +34,7 @@ import type {
 	UpdateHabitResponse,
 	UpdateUserRequest,
 	UpdateUserResponse
-} from './ctrlhabits_service_interface';
+} from '$lib/ctrlhabits/ctrlhabits_service_interface';
 import type { InMemoryCTRLHabitsServiceData } from './in_memory_ctrlhabits_service';
 import { DEFAULT_IN_MEMORY_CTRLHABITS_SERVICE_DATA } from './in_memory_ctrlhabits_service';
 import { InMemoryCTRLHabitsService } from './in_memory_ctrlhabits_service';

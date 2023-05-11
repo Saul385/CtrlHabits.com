@@ -1,4 +1,4 @@
-import type { ID, OAuthData } from '$lib/server/oauth/oauth_service_interface';
+import type { ID, OAuthData } from '$lib/oauth/oauth_service_interface';
 
 /**
  * CTRLHabitsServiceInterface is the interface for the CTRLHabits storage service.

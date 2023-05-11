@@ -37,7 +37,7 @@ import type {
 	UpdateUserRequest,
 	UpdateUserResponse,
 	User
-} from './ctrlhabits_service_interface';
+} from '../../ctrlhabits/ctrlhabits_service_interface';
 import { getNewEntryOptions, makeNewEntry, makeUpdatedEntry } from './new_entry';
 import { getNewHabitOptions, makeNewHabit, makeUpdatedHabit } from './new_habit';
 import { ERROR_USER_NOT_FOUND, getNewUserOptions, makeNewUser, makeUpdatedUser } from './new_user';

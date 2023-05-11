@@ -5,7 +5,7 @@ import { CTRLHABITS_SERVICE_TYPE } from '$lib/server/env';
 
 /**
  * The server-side load function for:
- * `PATCH /api/entries/[entry_id]`
+ * `PATCH /api/habits/[habit_id]/entries/[entry_id]`
  */
 export async function PATCH(event: RequestEvent): Promise<Response> {
 	// Check if the user is logged in. If not, return an error.
