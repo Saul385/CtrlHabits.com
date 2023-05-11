@@ -60,6 +60,7 @@ export class InMemoryCTRLHabitsService implements CTRLHabitsServiceInterface {
 			}
 		}
 
+		console.log({ options, newUser, data: this.data.users });
 		this.data.users[options.id] = newUser;
 		return Promise.resolve(newUser);
 	}

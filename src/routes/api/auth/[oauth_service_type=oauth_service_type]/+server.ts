@@ -49,9 +49,12 @@ export async function GET(event: RequestEvent): Promise<Response> {
 	const ctrlhabitsService = makeCTRLHabitsService(CTRLHABITS_SERVICE_TYPE);
 	const user = await getUserByOAuthData(ctrlhabitsService, oauthServiceType, oauthData);
 	if (!user) {
+		console.log('HUH!', { user });
 		const newUser = await ctrlhabitsService.addUser({ oauthData });
 		return makeJWTResponse('/claim', newUser);
 	}
+
+	console.log('WTF!', { user });
 
 	// Otherwise, log the user in.
 	return makeJWTResponse('/', user);
