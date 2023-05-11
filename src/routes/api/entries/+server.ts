@@ -1,11 +1,23 @@
 import type { RequestEvent } from './$types';
+import type { ListEntriesByHabitRequest } from '$lib/ctrlhabits';
 import { makeCTRLHabitsService } from '$lib/server/ctrlhabits/utils/make_ctrlhabits_service';
 import { toAddEntryRequest } from '$lib/server/ctrlhabits/utils/formdata';
 import { CTRLHABITS_SERVICE_TYPE } from '$lib/server/env';
 
 /**
  * The server-side load function for:
- * `POST /api/habits/[habit_id]/entries`
+ * `GET /api/entries`
+ */
+export async function GET(event: RequestEvent): Promise<Response> {
+	const ctrlhabitsService = makeCTRLHabitsService(CTRLHABITS_SERVICE_TYPE);
+	const request = (await event.request.json()) as ListEntriesByHabitRequest;
+	const entries = await ctrlhabitsService.listEntriesByHabit(request);
+	return new Response(JSON.stringify(entries), { status: 200 });
+}
+
+/**
+ * The server-side load function for:
+ * `POST /api/entries`
  */
 export async function POST(event: RequestEvent): Promise<Response> {
 	// Check if the user is logged in. If not, return an error.

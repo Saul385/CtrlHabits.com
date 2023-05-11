@@ -5,7 +5,19 @@ import { CTRLHABITS_SERVICE_TYPE } from '$lib/server/env';
 
 /**
  * The server-side load function for:
- * `PATCH /api/habits/[habit_id]/entries/[entry_id]`
+ * `GET /api/entries/[entry_id]`
+ */
+export async function GET(event: RequestEvent): Promise<Response> {
+	const ctrlhabitsService = makeCTRLHabitsService(CTRLHABITS_SERVICE_TYPE);
+	const entry = await ctrlhabitsService.getEntryByID({
+		id: event.params.entry_id
+	});
+	return new Response(JSON.stringify(entry), { status: 200 });
+}
+
+/**
+ * The server-side load function for:
+ * `PATCH /api/entries/[entry_id]`
  */
 export async function PATCH(event: RequestEvent): Promise<Response> {
 	// Check if the user is logged in. If not, return an error.

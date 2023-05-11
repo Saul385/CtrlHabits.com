@@ -5,6 +5,18 @@ import { CTRLHABITS_SERVICE_TYPE } from '$lib/server/env';
 
 /**
  * The server-side load function for:
+ * `GET /api/habits/[habit_id]`
+ */
+export async function GET(event: RequestEvent): Promise<Response> {
+	const ctrlhabitsService = makeCTRLHabitsService(CTRLHABITS_SERVICE_TYPE);
+	const habit = await ctrlhabitsService.getHabitByID({
+		id: event.params.habit_id
+	});
+	return new Response(JSON.stringify(habit), { status: 200 });
+}
+
+/**
+ * The server-side load function for:
  * `PATCH /api/habits/[habit_id]`
  */
 export async function PATCH(event: RequestEvent): Promise<Response> {
