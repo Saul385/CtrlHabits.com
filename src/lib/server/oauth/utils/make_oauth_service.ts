@@ -1,4 +1,4 @@
-import type { OAuthServiceInterface } from '$lib/server/oauth';
+import type { OAuthServiceInterface } from '$lib/oauth';
 import { OAuthServiceType } from '$lib/oauth';
 import { GitHubOAuthService } from '$lib/server/oauth/github/github_oauth_service';
 import { FileSystemGitHubOAuthService } from '$lib/server/oauth/github/file_system_github_oauth_service';

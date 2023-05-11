@@ -1,10 +1,6 @@
 import { parseGitHubID, parseGoogleID } from '$lib/server/oauth/utils/parse_oauth_id';
-import type { ID } from '$lib/server/oauth';
-import type {
-	AddUserRequest,
-	UpdateUserRequest,
-	User
-} from '../../ctrlhabits/ctrlhabits_service_interface';
+import type { ID } from '$lib/oauth';
+import type { AddUserRequest, UpdateUserRequest, User } from '$lib/ctrlhabits';
 import { getCurrentTimestamp, makeUUID } from './utils/get_storage_options';
 
 /**
@@ -47,8 +43,8 @@ export function makeUpdatedUser(
 		tag: request.tag ?? user.tag,
 		bio: request.bio ?? user.bio,
 		avatar_url: request.avatar_url ?? user.avatar_url,
-		github_id: request.github_id ?? user.github_id,
-		google_id: request.google_id ?? user.google_id,
+		github_id: user.github_id,
+		google_id: user.google_id,
 		created_at: user.created_at,
 		updated_at: timestamp
 	};

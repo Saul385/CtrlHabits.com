@@ -6,7 +6,7 @@ import type {
 	UpdateHabitRequest,
 	UpdateUserRequest
 } from '$lib/server/ctrlhabits';
-import type { ID } from '$lib/server/oauth';
+import type { ID } from '$lib/oauth';
 
 /**
  * Validated is a type that represents a request that has been validated.
@@ -57,9 +57,7 @@ export function toUpdateUserRequest(formData: FormData, userID: ID): Validated<U
 		id: userID,
 		tag: data.tag,
 		bio: data.bio,
-		avatar_url: data.avatar_url,
-		github_id: data.github_id,
-		google_id: data.google_id
+		avatar_url: data.avatar_url
 	});
 }
 

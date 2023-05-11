@@ -20,7 +20,7 @@ export async function POST(event: RequestEvent): Promise<Response> {
 
 	// Get the entry data from the form data.
 	const formData = await event.request.formData();
-	const { error, request: addEntryRequest } = toAddEntryRequest(formData, event.locals.user);
+	const { error, request: addEntryRequest } = toAddEntryRequest(formData, event.locals.user.id);
 	if (error !== null) {
 		return new Response(JSON.stringify({ error }), { status: 400 });
 	}

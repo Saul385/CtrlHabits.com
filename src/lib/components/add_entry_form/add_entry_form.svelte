@@ -1,4 +1,4 @@
-<form method="POST" action="/api/habits">
+<form method="POST" action="/api/entries">
 	<label for="name">Name</label>
 	<input type="text" id="name" name="name" />
 

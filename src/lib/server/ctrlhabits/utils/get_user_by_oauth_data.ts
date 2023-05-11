@@ -1,5 +1,5 @@
 import type { CTRLHabitsServiceInterface, User } from '$lib/server/ctrlhabits';
-import type { OAuthData } from '$lib/server/oauth';
+import type { OAuthData } from '$lib/oauth';
 import { OAuthServiceType } from '$lib/oauth';
 
 /**

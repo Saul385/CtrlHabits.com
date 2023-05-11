@@ -1,6 +1,10 @@
 <script>
+	// TODO(Cody): Resolve all lint errors and warnings in this file.
+	// Run `npm run check` to see them.
+	//
+
 	export let habits = [1, 2, 3];
-	let startDate = new Date('January 1 2023');
+	// let startDate = new Date('January 1 2023');
 	let color = 'grey';
 
 	let week = [[1, 2, 3], [1, 3], [2, 3], [3], [1], [2], [3]];
@@ -24,9 +28,9 @@
 			<h3>Cody Cole</h3>
 			<a href="/"
 				><img
-					class="profileImage"
+					class="profile"
 					src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
-					alt="Profile image"
+					alt="Profile"
 				/>
 			</a>
 		</div>

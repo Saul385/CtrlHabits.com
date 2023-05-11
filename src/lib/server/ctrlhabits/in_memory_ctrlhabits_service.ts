@@ -1,4 +1,4 @@
-import type { ID } from '$lib/server/oauth';
+import type { ID } from '$lib/oauth';
 import type {
 	AddEntryRequest,
 	AddEntryResponse,
@@ -37,7 +37,7 @@ import type {
 	UpdateUserRequest,
 	UpdateUserResponse,
 	User
-} from '../../ctrlhabits/ctrlhabits_service_interface';
+} from '$lib/ctrlhabits';
 import { getNewEntryOptions, makeNewEntry, makeUpdatedEntry } from './new_entry';
 import { getNewHabitOptions, makeNewHabit, makeUpdatedHabit } from './new_habit';
 import { ERROR_USER_NOT_FOUND, getNewUserOptions, makeNewUser, makeUpdatedUser } from './new_user';

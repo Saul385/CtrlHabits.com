@@ -1,5 +1,8 @@
 <script>
 	//Fill in logs at random
+	/**
+	 * @type {any[]}
+	 */
 	let days = [];
 	let startDate = new Date('January 1 2023');
 	// let habits = ['Lose 15 pounds', 'Read 100 books', 'Prepare for technical interview'];

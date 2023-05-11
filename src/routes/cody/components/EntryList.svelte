@@ -1,4 +1,7 @@
 <script>
+	/**
+	 * @type {any[]}
+	 */
 	let habits = [];
 	let colors = ['#F1B963', '#bbea58', '#E46161'];
 

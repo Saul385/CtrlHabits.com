@@ -1,9 +1,5 @@
-import type { ID } from '$lib/server/oauth';
-import type {
-	AddHabitRequest,
-	Habit,
-	UpdateHabitRequest
-} from '../../ctrlhabits/ctrlhabits_service_interface';
+import type { ID } from '$lib/oauth';
+import type { AddHabitRequest, Habit, UpdateHabitRequest } from '$lib/ctrlhabits';
 import { getCurrentTimestamp, makeUUID } from './utils/get_storage_options';
 
 /**

@@ -1,4 +1,4 @@
-import type { ID } from '$lib/server/oauth';
+import type { ID } from '$lib/oauth';
 import type {
 	AddEntryRequest,
 	Entry,

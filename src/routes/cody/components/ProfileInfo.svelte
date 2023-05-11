@@ -2,11 +2,11 @@
 </script>
 
 <div class="profileContainer">
-	<a href="/"
-		><img
+	<a href="/">
+		<img
 			class="profileImage"
 			src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
-			alt="Profile image"
+			alt="colecody27's avatar"
 		/>
 	</a>
 	<div class="info">

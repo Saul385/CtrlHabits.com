@@ -174,11 +174,9 @@ export type AddUserResponse = User;
  */
 export interface UpdateUserRequest {
 	id: ID;
-	tag?: string;
+	tag?: string | null;
 	bio?: string;
 	avatar_url?: string;
-	github_id?: ID | null;
-	google_id?: ID | null;
 }
 
 /**
@@ -307,6 +305,8 @@ export interface Habit {
 	 * frequency is the habit's frequency.
 	 */
 	frequency: number;
+
+	// TODO: Replace frequency with `unit` and `goal`.
 
 	/**
 	 * start_date is the habit's start date.

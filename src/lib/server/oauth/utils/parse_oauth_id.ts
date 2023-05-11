@@ -1,5 +1,5 @@
 import { OAuthServiceType } from '$lib/oauth';
-import type { OAuthData } from '$lib/server/oauth';
+import type { OAuthData } from '$lib/oauth';
 
 /**
  * parseGitHubID parses the GitHub ID from the OAuthData and OAuthServiceType.

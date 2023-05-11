@@ -1,8 +1,8 @@
 <script>
-	import Header from '../../lib/components/Header.svelte';
-	import Heatmap from '../../lib/components/Heatmap.svelte';
-	import AddEntryForm from '../../lib/components/AddEntryForm.svelte';
-	import EntryList from '../../lib/components/EntryList.svelte';
+	import Header from './components/Header.svelte';
+	import Heatmap from './components/Heatmap.svelte';
+	import AddEntryForm from './components/AddEntryForm.svelte';
+	import EntryList from './components/EntryList.svelte';
 	let habits = ['Habit 1', 'Habit 2', 'Habit 3'];
 	let colors = ['#F1B963', '#bbea58', '#E46161'];
 </script>

@@ -1,4 +1,4 @@
-import type { User } from '$lib/server/user';
+import type { User } from '$lib/ctrlhabits';
 
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces

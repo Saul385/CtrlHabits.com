@@ -1,5 +1,5 @@
 <script>
-	import Header from '../../lib/components/Header.svelte';
+	import Header from '../components/Header.svelte';
 	let habits = ['Habit 1', 'Habit 2', 'Habit 3'];
 	let colors = ['#F1B963', '#bbea58', '#E46161'];
 </script>

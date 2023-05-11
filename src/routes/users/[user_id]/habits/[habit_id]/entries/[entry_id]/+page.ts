@@ -3,11 +3,13 @@ import { makeCTRLHabitsAPI } from '$lib/ctrlhabits/api/utils/make_ctrlhabits_api
 
 /**
  * load function for:
- * `GET /habits/[habit_id]`
+ * GET /users/[user_id]/habits/[habit_id]/entries/[entry_id]
  */
 export async function load(event: PageLoadEvent) {
-	const api = makeCTRLHabitsAPI();
-	return await api.getHabitsHabitID({
-		id: event.params.habit_id
-	});
+	const api = makeCTRLHabitsAPI(event.fetch);
+	return {
+		entry: await api.getEntriesEntryID({
+			id: event.params.habit_id
+		})
+	};
 }
