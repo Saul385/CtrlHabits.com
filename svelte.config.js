@@ -8,7 +8,12 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		env: {
+			// See:
+			// https://kit.svelte.dev/docs/configuration#env
+			publicPrefix: ''
+		}
 	}
 };
 
